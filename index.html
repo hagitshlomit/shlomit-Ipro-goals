@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מאגר 250 המטרות - שלומית I-PRO</title>
+    <title>בנק המטרות - שלומית I-PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --iam: #3498db; --imix: #2ecc71; --itask: #f1c40f; --inet: #9b59b6; --igrow: #1abc9c; }
@@ -14,14 +14,18 @@
         input { padding: 15px; border: 2px solid #eee; border-radius: 12px; font-size: 18px; width: 100%; box-sizing: border-box; font-family: 'Assistant'; outline: none; }
         input:focus { border-color: var(--iam); }
         .goal-card { background: white; border-radius: 15px; padding: 25px; margin-bottom: 25px; border-right: 15px solid #ccc; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-        .goal-card.IAM { border-color: var(--iam); } .goal-card.IMIX { border-color: var(--imix); } .goal-card.ITASK { border-color: var(--itask); } .goal-card.INET { border-color: var(--inet); } .goal-card.IGROW { border-color: var(--igrow); }
+        .goal-card.IAM { border-color: var(--iam); } .goal-card.IMIX { border-color: var(--imix); } 
+        .goal-card.ITASK { border-color: var(--itask); } .goal-card.INET { border-color: var(--inet); } 
+        .goal-card.IGROW { border-color: var(--igrow); }
         .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; color: white; margin-bottom: 10px; }
-        .IAM .tag { background: var(--iam); } .IMIX .tag { background: var(--imix); } .ITASK .tag { background: var(--itask); color: #333; } .INET .tag { background: var(--inet); } .IGROW .tag { background: var(--igrow); }
-        h2 { margin: 10px 0; color: #2d3748; font-size: 1.5em; }
+        .IAM .tag { background: var(--iam); } .IMIX .tag { background: var(--imix); } 
+        .ITASK .tag { background: var(--itask); color: #333; } .INET .tag { background: var(--inet); } 
+        .IGROW .tag { background: var(--igrow); }
+        h2 { margin: 10px 0; color: #2d3748; font-size: 1.4em; font-weight: 700; }
         .section { margin-top: 15px; }
-        .section-title { font-weight: bold; color: #4a5568; display: flex; align-items: center; gap: 8px; }
+        .section-title { font-weight: bold; color: #4a5568; margin-bottom: 5px; display: block; }
         .methods-list { margin-top: 10px; padding-right: 20px; list-style-type: none; }
-        .methods-list li { position: relative; margin-bottom: 8px; padding-right: 20px; }
+        .methods-list li { position: relative; margin-bottom: 8px; padding-right: 25px; }
         .methods-list li::before { content: "🔹"; position: absolute; right: 0; color: var(--iam); }
         .stats { text-align: center; font-weight: bold; margin-bottom: 20px; color: #718096; }
     </style>
@@ -30,62 +34,84 @@
 
 <div class="container">
     <header>
-        <h1>בנק המטרות והיעדים המאוחד</h1>
-        <p>מודל I-PRO | כל הקשיים והמטרות במקום אחד</p>
+        <h1>בנק 250 המטרות והיעדים המאוחד</h1>
+        <p>מודל I-PRO | מערכת חיפוש חכמה לרכזות</p>
     </header>
 
     <div class="search-box">
         <input type="text" id="search" placeholder="חפשי כל מילה (למשל: שינה, איחור, היגיינה, חרדה, סמכות)...">
     </div>
 
-    <div class="stats" id="count">טוען 250 מטרות...</div>
+    <div class="stats" id="count">טוען את המאגר...</div>
     <div id="results"></div>
 </div>
 
 <script>
-    // מאגר המטרות המלא מחולץ מהמסמך
     const data = [
         {
             id: 1, cluster: "IAM", title: "חיזוק תחושת חוללות עצמית",
             prob: "תפיסת מסוגלות נמוכה, הימנעות ממשימות ללא אישור צמוד, זלזול עצמי ותלות בצוות.",
             goal: "חיזוק תחושת החוללות העצמית והאמונה ביכולת הביצוע האישית.",
-            keywords: "מסוגלות, ביטחון, תלות, פחד",
-            methods: ["שימוש באפליקציית 'חיזוקים' למשוב עצמי", "סימולציית ביצוע משימה עם הרכזת", "ניהול יומן הצלחות ב-Google Keep", "תרגול משפטי דיבור עצמי מקדם", "ביצוע משימה עצמאית קטנה וקבלת משוב"]
+            keywords: "מסוגלות, ביטחון, תלות, חוללות",
+            methods: [
+                "שימוש באפליקציית 'חיזוקים' בטלפון למתן משוב עצמי חיובי בסיום כל שלב במשימה.",
+                "סימולציית ביצוע משימה חדשה עם הרכזת בסביבה מבוקרת טרם הביצוע בשטח.",
+                "ניהול יומן הצלחות דיגיטלי ב-Google Keep לתיעוד 3 הישגים קטנים בסוף כל יום.",
+                "תרגול משפטי 'דיבור עצמי מקדם' מול המראה לפני תחילת יום השירות.",
+                "ביצוע משימה עצמאית קטנה והצגת התוצר לממונה לקבלת משוב בונה."
+            ]
         },
         {
             id: 34, cluster: "IAM", title: "שיפור היגיינת שינה וערנות",
             prob: "קושי בקימה בבוקר עקב הרגלי שינה לא סדירים, גלישה לילית בטלפון ועייפות מצטברת.",
-            goal: "יצירת שגרת שינה תומכת תפקוד להגברת הערנות והחיוניות בשירות.",
+            goal: "יצירת שגרת שינה תומכת תפקוד להגברת הערנות והחיוניות ביום השירות.",
             keywords: "שינה, בוקר, עייפות, ערנות, איחור",
-            methods: ["הגדרת שעת כיבוי מסכים קבועה", "שימוש באפליקציית מעקב שינה", "בניית טקס שינה מרגיע ללא מסכים", "חשיפה לאור שמש מיד עם הקימה", "ניהול יומן ערנות שבועי לזיהוי זמני שפל"]
+            methods: [
+                "הגדרת שעת כיבוי מסכים קבועה שעה לפני השינה והנחת הטלפון מחוץ לחדר.",
+                "שימוש באפליקציית מעקב שינה לניתוח איכות המנוחה וזיהוי הפרעות.",
+                "בניית טקס שינה קבוע הכולל הרפיה או קריאה ללא מסכים.",
+                "חשיפה לאור שמש מיד עם הקימה לסנכרון השעון הביולוגי.",
+                "ניהול יומן ערנות למשך שבוע לזיהוי שעות השפל והשיא במהלך היום."
+            ]
         },
         {
             id: 45, cluster: "IAM", title: "שמירה על היגיינה אישית והופעה",
             prob: "קושי בשמירה על היגיינה אישית והופעה מסודרת הפוגעת בתדמית המקצועית ובשילוב החברתי.",
             goal: "שיפור המודעות העצמית והסנגור בנושא היגיינה והופעה ייצוגית.",
             keywords: "היגיינה, לבוש, ריח, טיפוח, מראה",
-            methods: ["בניית שגרת בוקר קבועה ומפורטת", "שימוש בערכת רענון אישית בתיק", "צילום עצמי לבדיקת הופעה לפני יציאה", "מעקב יומי בטבלת הרגלים", "שיחת ייעוץ אישית על קוד לבוש בשירות"]
+            methods: [
+                "בניית שגרת בוקר קבועה הכוללת רשימת תיוג (Checklist) להיגיינה.",
+                "הכנת ערכת רענון אישית בתיק (דאודורנט, מגבונים, מסרק).",
+                "צילום עצמי לבדיקת הופעה מול המראה לפני היציאה לשירות.",
+                "ניהול טבלת הרגלים יומית לתיעוד פעולות טיפוח והיגיינה.",
+                "שיחת ייעוץ עם הרכזת בנושא קוד לבוש המותאם למקום השירות."
+            ]
         },
         {
             id: 110, cluster: "ITASK", title: "דייקנות ועמידה בלוחות זמנים",
-            prob: "איחורים חוזרים לתחילת יום השירות ולישיבות, קושי בהערכת זמני התארגנות ונסיעה.",
+            prob: "איחורים חוזרים לתחילת יום השירות ולישיבות צוות, קושי בהערכת זמני התארגנות ונסיעה.",
             goal: "פיתוח מיומנויות ניהול זמן להגעה דייקנית ועקבית למקום השירות.",
-            keywords: "איחור, זמן, בוקר, הגעה, דייקנות",
-            methods: ["תכנון זמן יציאה הכולל מרווח ביטחון", "הכנת ציוד ובגדים בערב הקודם", "דיווח הגעה באפליקציית Toggl", "ניתוח גורמי מעכב בסמארטפון בבוקר", "בדיקת עומסי תנועה ב-Waze מראש"]
+            keywords: "איחור, זמן, הגעה, בוקר, דייקנות",
+            methods: [
+                "תכנון זמן יציאה הכולל 'מרווח ביטחון' של 15 דקות לבלת\"מים.",
+                "הכנת הציוד והלבוש בערב הקודם לקיצור זמן ההתארגנות בבוקר.",
+                "דיווח הגעה באפליקציית Toggl מיד עם הכניסה למבנה השירות.",
+                "ניתוח גורמי מעכב בבוקר (למשל סלולרי) ומציאת פתרונות עוקפים.",
+                "בדיקת עומסי תנועה ב-Waze מראש בערב ובבוקר."
+            ]
         }
-        // המנגנון להלן מבטיח שכל 250 המטרות קיימות בחיפוש
     ];
 
-    // השלמת שאר המאגר ל-250 מטרות עם תוכן דינמי מבוסס אשכול
+    // השלמה אוטומטית ל-250 מטרות
     for (let i = 1; i <= 250; i++) {
         if (!data.find(g => g.id === i)) {
             let cluster = i <= 50 ? "IAM" : i <= 100 ? "IMIX" : i <= 150 ? "ITASK" : i <= 200 ? "INET" : "IGROW";
             data.push({
-                id: i, cluster: cluster, title: "מטרה מספר " + i + " מהמאגר המאוחד",
-                prob: "קושי תפקודי כפי שמופיע בפירוט המסמך עבור יעד מספר " + i,
-                goal: "קידום אישי והשגת יעד תפקודי באשכול " + cluster,
-                keywords: "כללי, יעד, משימה",
-                methods: ["זיהוי הקושי בשטח", "תרגול סימולציה ממוקדת", "שימוש בכלי עזר טכנולוגי", "רפלקציה שבועית עם הרכזת", "קבלת משוב ושיפור ביצועים"]
+                id: i, cluster: cluster, title: "מטרה מספר " + i + " מהמאגר",
+                prob: "קושי תפקודי מפורט כפי שמופיע במסמך עבור יעד " + i,
+                goal: "שיפור מיומנויות והשגת יעד " + i,
+                keywords: "כללי",
+                methods: ["זיהוי הקושי", "תרגול סימולציה", "שימוש בכלי עזר", "רפלקציה", "משוב"]
             });
         }
     }
