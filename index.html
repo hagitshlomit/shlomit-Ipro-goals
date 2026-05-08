@@ -3,74 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אינדקס יעדי התפתחות</title>
+    <title>בנק יעדי התפתחות 1-250</title>
     <style>
-        :root { --iam: #e67e22; --iwe: #27ae60; --itask: #2980b9; --bg: #f0f2f5; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; direction: rtl; }
-        .container { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #1a2a3a; font-size: 2.5rem; margin-bottom: 10px; }
-        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+        :root { --iam: #e67e22; --iwe: #27ae60; --itask: #2980b9; --bg: #f8fafc; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #1e293b; line-height: 1.5; }
+        .container { max-width: 1300px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #0f172a; font-size: 2.2rem; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #64748b; margin-bottom: 30px; }
         
-        .search-box { width: 100%; padding: 18px 25px; margin-bottom: 40px; border: 2px solid #e0e0e0; border-radius: 50px; font-size: 1.1rem; outline: none; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .search-box:focus { border-color: var(--itask); box-shadow: 0 4px 12px rgba(41,128,185,0.2); }
+        .search-box { width: 100%; padding: 15px 25px; margin-bottom: 30px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; outline: none; transition: 0.3s; box-sizing: border-box; }
+        .search-box:focus { border-color: var(--itask); ring: 3px rgba(41,128,185,0.1); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
-        .cluster-col { background: #fff; border-radius: 15px; border: 1px solid #eaeaea; overflow: hidden; display: flex; flex-direction: column; }
-        .cluster-h { padding: 20px; color: white; font-weight: bold; text-align: center; font-size: 1.4rem; letter-spacing: 1px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 25px; }
+        .cluster-col { background: #f1f5f9; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #e2e8f0; }
+        .cluster-h { padding: 18px; color: white; font-weight: bold; text-align: center; font-size: 1.3rem; }
         .iam-h { background: var(--iam); } .iwe-h { background: var(--iwe); } .itask-h { background: var(--itask); }
         
-        .item-list { list-style: none; padding: 0; margin: 0; max-height: 600px; overflow-y: auto; }
-        .item { padding: 15px 20px; border-bottom: 1px solid #f5f5f5; cursor: pointer; display: flex; align-items: center; transition: 0.2s; }
-        .item:hover { background: #f8fbff; transform: translateX(-5px); }
-        .item-id { background: #f0f0f0; color: #555; padding: 3px 10px; border-radius: 6px; margin-left: 15px; font-weight: bold; font-size: 0.9rem; min-width: 40px; text-align: center; }
-        .item-text { font-size: 1.05rem; font-weight: 500; }
+        .item-list { list-style: none; padding: 10px; margin: 0; max-height: 650px; overflow-y: auto; }
+        .item { background: white; margin-bottom: 12px; padding: 15px; border-radius: 12px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; display: flex; flex-direction: column; gap: 5px; }
+        .item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-color: #cbd5e1; }
+        .item-header { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #0f172a; font-size: 1.05rem; }
+        .item-id { background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 0.85rem; }
+        .item-prob-preview { font-size: 0.9rem; color: #64748b; border-top: 1px solid #f1f5f9; pt: 5px; margin-top: 5px; font-style: italic; }
 
-        /* Modal */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 5% auto; padding: 40px; width: 90%; max-width: 750px; border-radius: 25px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .close { position: absolute; left: 25px; top: 20px; font-size: 35px; cursor: pointer; color: #ccc; }
-        .close:hover { color: #666; }
-        .tag { display: inline-block; padding: 6px 18px; border-radius: 50px; color: white; margin-bottom: 20px; font-size: 0.9rem; font-weight: bold; }
+        /* Modal Structure */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px); overflow-y: auto; }
+        .modal-content { background: white; margin: 2% auto; padding: 0; width: 95%; max-width: 800px; border-radius: 24px; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); overflow: hidden; }
+        .modal-header { padding: 30px; color: white; position: relative; }
+        .close { position: absolute; left: 20px; top: 20px; font-size: 30px; cursor: pointer; color: white; opacity: 0.8; }
+        .close:hover { opacity: 1; }
         
-        .modal-body h3 { font-size: 1.2rem; color: #2c3e50; margin: 20px 0 8px 0; border-right: 4px solid #ddd; padding-right: 12px; }
-        .modal-body p { background: #f9f9f9; padding: 15px; border-radius: 12px; margin: 0; line-height: 1.6; }
-        .methods-list { background: #f0f7ff; padding: 20px 40px; border-radius: 12px; border-right: 4px solid var(--itask); }
-        .methods-list li { margin-bottom: 10px; }
+        .modal-body { padding: 30px; display: flex; flex-direction: column; gap: 20px; }
+        .card { background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #f1f5f9; }
+        .card-label { font-weight: bold; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 8px; display: block; color: #64748b; }
+        .card-text { font-size: 1.1rem; color: #1e293b; }
+        
+        .methods-grid { display: grid; grid-template-columns: 1fr; gap: 10px; list-style: none; padding: 0; margin: 0; }
+        .method-item { background: white; padding: 12px 18px; border-radius: 10px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px; }
+        .method-item::before { content: "•"; color: var(--itask); font-weight: bold; font-size: 1.5rem; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>אינדקס יעדי התפתחות</h1>
+    <h1>בנק יעדי התפתחות</h1>
     <p class="subtitle">ניהול ידע ומצוינות מקצועית | 1-250</p>
-    <div id="loader" style="text-align:center; padding: 20px; color: #e67e22; font-weight: bold;">טוען את בנק היעדים...</div>
-    <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי לפי שם, מספר או תוכן היעד..." onkeyup="filter()">
+    <div id="loader" style="text-align:center; padding: 20px; color: var(--iam); font-weight: bold;">טוען את בנק היעדים...</div>
+    <input type="text" id="search" class="search-box" placeholder="חפשי יעד, בעיה או מספר יעד..." onkeyup="filter()">
     
     <div class="grid">
-        <div class="cluster-col"><div class="cluster-h iam-h">I AM - אישי וחוסן</div><ul id="I AM" class="item-list"></ul></div>
-        <div class="cluster-col"><div class="cluster-h iwe-h">I WE - צוות וקהילה</div><ul id="I WE" class="item-list"></ul></div>
-        <div class="cluster-col"><div class="cluster-h itask-h">I TASK - משימות וביצוע</div><ul id="I TASK" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h iam-h">I AM - אישי</div><ul id="I AM" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h iwe-h">I WE - צוות</div><ul id="I WE" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h itask-h">I TASK - משימות</div><ul id="I TASK" class="item-list"></ul></div>
     </div>
 </div>
 
 <div id="myModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="modalTag" class="tag"></div>
-        <h2 id="modalTitle" style="font-size: 2rem; margin-bottom: 10px;"></h2>
+        <div id="modalHeader" class="modal-header">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalIdLabel" style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 5px;"></div>
+            <h2 id="modalTitle" style="margin:0; font-size: 1.8rem;"></h2>
+        </div>
         <div class="modal-body">
-            <h3>הבעיה</h3><p id="modalProb"></p>
-            <h3>המטרה</h3><p id="modalGoal"></p>
-            <h3>שיטות עבודה (5 דרכים)</h3>
-            <ul id="modalMethods" class="methods-list"></ul>
+            <div class="card"><span class="card-label">הבעיה שהוגדרה</span><div id="modalProb" class="card-text"></div></div>
+            <div class="card"><span class="card-label">המטרה להתפתחות</span><div id="modalGoal" class="card-text"></div></div>
+            <div class="card" style="background: #f0f7ff; border-color: #e0f2fe;">
+                <span class="card-label" style="color: #0369a1;">שיטות עבודה (הדרכים לביצוע)</span>
+                <ul id="modalMethods" class="methods-grid"></ul>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     let allGoals = [];
-    // רשימת קבצים לניסיון טעינה (תומך בשני הפורמטים שראיתי בגיט שלך)
     const files = [
         '1-50.json', '51-100.json', '101-150.json', '151-200.json', '201-250.json',
         '1-50.json.txt', '51-100.json.txt', '101-150.json.txt', '151-200.json.txt', '201-250.json.txt'
@@ -82,12 +89,11 @@
                 const response = await fetch(file);
                 if (response.ok) {
                     const data = await response.json();
-                    // מניעת כפילויות אם קובץ נטען פעמיים (גם כ-json וגם כ-txt)
                     data.forEach(goal => {
                         if (!allGoals.find(g => g.id === goal.id)) allGoals.push(goal);
                     });
                 }
-            } catch (e) { /* שגיאה שקטה ומעבר לקובץ הבא */ }
+            } catch (e) {}
         }
         document.getElementById('loader').style.display = 'none';
         render();
@@ -100,32 +106,41 @@
         allGoals.forEach(goal => {
             const li = document.createElement('li');
             li.className = 'item';
-            li.innerHTML = `<span class="item-id">#${goal.id}</span> <span class="item-text">${goal.title}</span>`;
+            li.innerHTML = `
+                <div class="item-header"><span class="item-id">#${goal.id}</span> <span>${goal.title}</span></div>
+                <div class="item-prob-preview">בעיה: ${goal.prob}</div>
+            `;
             li.onclick = () => showDetail(goal);
             if(lists[goal.cluster]) lists[goal.cluster].appendChild(li);
         });
     }
 
     function showDetail(goal) {
+        const header = document.getElementById('modalHeader');
+        const color = goal.cluster === 'I AM' ? 'var(--iam)' : goal.cluster === 'I WE' ? 'var(--iwe)' : 'var(--itask)';
+        header.style.backgroundColor = color;
+        
+        document.getElementById('modalIdLabel').innerText = goal.cluster + ' | יעד #' + goal.id;
         document.getElementById('modalTitle').innerText = goal.title;
         document.getElementById('modalProb').innerText = goal.prob;
         document.getElementById('modalGoal').innerText = goal.goal;
-        document.getElementById('modalTag').innerText = goal.cluster;
-        document.getElementById('modalTag').className = 'tag ' + (goal.cluster === 'I AM' ? 'iam-h' : goal.cluster === 'I WE' ? 'iwe-h' : 'itask-h');
         
         const methodsList = document.getElementById('modalMethods');
-        methodsList.innerHTML = goal.methods.map(m => `<li>${m}</li>`).join('');
+        methodsList.innerHTML = goal.methods.map(m => `<li class="method-item">${m}</li>`).join('');
         
         document.getElementById('myModal').style.display = "block";
+        document.body.style.overflow = "hidden"; // מונע גלילה של הרקע
     }
 
-    function closeModal() { document.getElementById('myModal').style.display = "none"; }
+    function closeModal() { 
+        document.getElementById('myModal').style.display = "none"; 
+        document.body.style.overflow = "auto";
+    }
     
     function filter() {
         const val = document.getElementById('search').value.toLowerCase();
         document.querySelectorAll('.item').forEach(el => {
-            const match = el.innerText.toLowerCase().includes(val);
-            el.style.display = match ? 'flex' : 'none';
+            el.style.display = el.innerText.toLowerCase().includes(val) ? 'flex' : 'none';
         });
     }
 
