@@ -3,50 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בנק המטרות I-PRO</title>
+    <title>בנק המטרות והיעדים I-PRO | עמותת שלומית</title>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Assistant', sans-serif; background-color: #f4f7f6; padding: 20px; color: #2d3748; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .search-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; position: sticky; top: 10px; z-index: 100; }
-        input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ddd; font-size: 18px; outline: none; }
-        .goal-card { background: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; border-right: 15px solid #3498db; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .methods-list { margin-right: 20px; }
-        .tag { font-size: 0.8em; color: #7f8c8d; font-weight: bold; }
+        :root {
+            --iam-color: #3498db;
+            --imix-color: #e67e22;
+            --itask-color: #2ecc71;
+            --inet-color: #9b59b6;
+            --igrow-color: #f1c40f;
+        }
+        body { font-family: 'Assistant', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #2d3748; }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        
+        .search-box { 
+            background: white; padding: 20px; border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 30px; 
+            position: sticky; top: 10px; z-index: 100; 
+        }
+        input { 
+            width: 100%; padding: 15px; border-radius: 12px; 
+            border: 2px solid #edf2f7; font-size: 18px; outline: none; 
+            transition: border-color 0.3s; box-sizing: border-box;
+        }
+        input:focus { border-color: #3498db; }
+
+        .goal-card { 
+            background: white; border-radius: 15px; padding: 25px; 
+            margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s; border-right: 12px solid #ddd;
+        }
+        .goal-card:hover { transform: translateY(-3px); }
+        
+        /* עיצוב לפי אשכולות */
+        .card-IAM { border-right-color: var(--iam-color); }
+        .card-IMIX { border-right-color: var(--imix-color); }
+        .card-ITASK { border-right-color: var(--itask-color); }
+        .card-INET { border-right-color: var(--inet-color); }
+        .card-IGROW { border-right-color: var(--igrow-color); }
+
+        .tag { 
+            display: inline-block; padding: 4px 12px; border-radius: 20px; 
+            font-size: 0.85em; font-weight: bold; margin-bottom: 10px; color: white;
+        }
+        .tag-IAM { background-color: var(--iam-color); }
+        .tag-IMIX { background-color: var(--imix-color); }
+        .tag-ITASK { background-color: var(--itask-color); }
+        .tag-INET { background-color: var(--inet-color); }
+        .tag-IGROW { background-color: var(--igrow-color); }
+
+        h2 { margin-top: 0; color: #1a202c; font-size: 1.4em; }
+        p { line-height: 1.6; margin: 10px 0; }
+        .section-title { font-weight: bold; color: #4a5568; display: block; margin-top: 15px; }
+        
+        .methods-list { 
+            margin: 10px 20px 0 0; padding: 0; 
+            list-style-type: none; 
+        }
+        .methods-list li { 
+            position: relative; padding-right: 25px; margin-bottom: 8px; 
+        }
+        .methods-list li::before { 
+            content: "•"; color: #3498db; font-weight: bold; 
+            position: absolute; right: 0; font-size: 1.2em;
+        }
+        .no-results { text-align: center; padding: 40px; color: #718096; }
     </style>
 </head>
 <body>
     <div class="container">
+        <header>
+            <h1>בנק המטרות I-PRO</h1>
+            <p>עמותת שלומית - תוכנית קידום אישית (תק"א)</p>
+        </header>
+
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="חפשי קושי, מטרה או מספר (למשל: איחור, 195, חוסן)...">
+            <input type="text" id="searchInput" placeholder="חיפוש לפי מספר מטרה, מילת מפתח או שם המטרה...">
         </div>
+
         <div id="results"></div>
     </div>
 
     <script src="goals_data.js"></script>
+    <script src="goals_data_2.js"></script>
+
     <script>
+        // פונקציה לרינדור הכרטיסיות
         function render(filter = '') {
-            const results = document.getElementById('results');
-            results.innerHTML = '';
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            
+            // שימוש ב-goalsData שנוצר בתוך קבצי ה-js
             const filtered = goalsData.filter(g => 
-                g.title.includes(filter) || g.prob.includes(filter) || g.keywords.includes(filter) || g.id.toString() === filter
-            ).sort((a,b) => a.id - b.id);
+                g.id.toString() === filter || 
+                g.title.includes(filter) || 
+                g.prob.includes(filter) || 
+                g.keywords.includes(filter)
+            ).sort((a, b) => a.id - b.id);
+
+            if (filtered.length === 0) {
+                resultsDiv.innerHTML = '<div class="no-results">לא נמצאו מטרות התואמות את החיפוש שלך.</div>';
+                return;
+            }
 
             filtered.forEach(g => {
-                results.innerHTML += `
-                    <div class="goal-card">
-                        <div class="tag">מטרה ${g.id} | ${g.cluster}</div>
+                resultsDiv.innerHTML += `
+                    <div class="goal-card card-${g.cluster}">
+                        <span class="tag tag-${g.cluster}">מטרה ${g.id} | אשכול ${g.cluster}</span>
                         <h2>${g.title}</h2>
-                        <p><strong>🔍 הבעיה הנצפית:</strong> ${g.prob}</p>
-                        <p><strong>🎯 המטרה:</strong> ${g.goal}</p>
-                        <p><strong>⚙️ 5 דרכי פעולה אופרטיביות:</strong></p>
-                        <ul class="methods-list">${g.methods.map(m => `<li>${m}</li>`).join('')}</ul>
+                        <p><span class="section-title">🔍 הבעיה הנצפית:</span> ${g.prob}</p>
+                        <p><span class="section-title">🎯 המטרה המבוקשת:</span> ${g.goal}</p>
+                        <span class="section-title">⚙️ 5 דרכי פעולה אופרטיביות:</span>
+                        <ul class="methods-list">
+                            ${g.methods.map(m => `<li>${m}</li>`).join('')}
+                        </ul>
                     </div>
                 `;
             });
         }
-        document.getElementById('searchInput').addEventListener('input', e => render(e.target.value));
-        window.onload = () => render();
+
+        // האזנה לחיפוש
+        document.getElementById('searchInput').addEventListener('input', e => {
+            render(e.target.value);
+        });
+
+        // טעינה ראשונית
+        window.onload = () => {
+            render();
+        };
     </script>
 </body>
 </html>
