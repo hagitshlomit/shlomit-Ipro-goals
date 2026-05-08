@@ -2,54 +2,117 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>בנק המטרות I-PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אינדקס יעדי התפתחות 1-250</title>
     <style>
-        body { font-family: 'Assistant', sans-serif; background: #f0f2f5; padding: 20px; direction: rtl; }
-        .container { max-width: 900px; margin: 0 auto; }
-        .search-box { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ccc; font-size: 1.2em; margin-bottom: 20px; }
-        .card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; border-right: 10px solid #3498db; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .label { font-weight: bold; color: #555; margin-top: 10px; display: block; }
-        .methods { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-top: 10px; }
+        :root {
+            --iam-color: #e67e22; --iwe-color: #27ae60; --itask-color: #2980b9;
+            --bg: #f4f7f6; --text: #2c3e50;
+        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: var(--itask-color); }
+        .search-box { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #eee; border-radius: 30px; font-size: 18px; outline: none; transition: 0.3s; }
+        .search-box:focus { border-color: var(--itask-color); }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .cluster-col { background: #fff; border-radius: 10px; border: 1px solid #eee; overflow: hidden; }
+        .cluster-h { padding: 15px; color: white; font-weight: bold; text-align: center; }
+        .iam-h { background: var(--iam-color); } .iwe-h { background: var(--iwe-color); } .itask-h { background: var(--itask-color); }
+        
+        .item-list { list-style: none; padding: 0; margin: 0; max-height: 500px; overflow-y: auto; }
+        .item { padding: 12px; border-bottom: 1px solid #f9f9f9; cursor: pointer; display: flex; align-items: center; transition: 0.2s; }
+        .item:hover { background: #f0f7ff; }
+        .item-id { background: #eee; padding: 2px 6px; border-radius: 4px; margin-left: 10px; font-size: 0.8em; min-width: 30px; text-align: center; }
+
+        /* Modal Styles */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+        .modal-content { background: white; margin: 5% auto; padding: 30px; width: 80%; max-width: 700px; border-radius: 15px; position: relative; line-height: 1.6; }
+        .close { position: absolute; left: 20px; top: 20px; font-size: 28px; cursor: pointer; }
+        .tag { display: inline-block; padding: 4px 10px; border-radius: 5px; color: white; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>בנק המטרות I-PRO</h1>
-        <input type="text" id="search" class="search-box" placeholder="חפשי מספר מטרה או מילה...">
-        <div id="results"></div>
+
+<div class="container">
+    <h1>אינדקס יעדי התפתחות (1-250)</h1>
+    <input type="text" id="search" class="search-box" placeholder="חפשו יעד, מיומנות או מילת מפתח..." onkeyup="filter()">
+    
+    <div id="loader" style="text-align:center;">טוען נתונים מהמאגר...</div>
+
+    <div class="grid">
+        <div class="cluster-col"><div class="cluster-h iam-h">I AM</div><ul id="I AM" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h iwe-h">I WE</div><ul id="I WE" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h itask-h">I TASK</div><ul id="I TASK" class="item-list"></ul></div>
     </div>
+</div>
 
-    <script src="goals_data.js"></script>
-    <script src="goals_data_2.js"></script>
-    <script>
-        function showGoals(filter = '') {
-            const div = document.getElementById('results');
-            div.innerHTML = '';
-            const term = filter.toLowerCase();
-            
-            const filtered = goalsData.filter(g => 
-                g.id.toString() === term || 
-                g.title.toLowerCase().includes(term) || 
-                g.keywords.toLowerCase().includes(term)
-            );
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modalTag" class="tag"></div>
+        <h2 id="modalTitle"></h2>
+        <p><strong>הבעיה:</strong> <span id="modalProb"></span></p>
+        <p><strong>המטרה:</strong> <span id="modalGoal"></span></p>
+        <div id="modalMethods"></div>
+    </div>
+</div>
 
-            filtered.forEach(g => {
-                div.innerHTML += `
-                    <div class="card">
-                        <small>מטרה ${g.id} | ${g.cluster}</small>
-                        <h2>${g.title}</h2>
-                        <span class="label">🔍 הבעיה:</span> ${g.prob}
-                        <span class="label">🎯 המטרה:</span> ${g.goal}
-                        <div class="methods">
-                            <span class="label">⚙️ דרכים אופרטיביות:</span>
-                            <ul>${g.methods.map(m => `<li>${m}</li>`).join('')}</ul>
-                        </div>
-                    </div>`;
-            });
+<script>
+    let allGoals = [];
+    const files = ['1-50.json', '51-100.json', '101-150.json', '151-200.json', '201-250.json'];
+
+    async function loadData() {
+        try {
+            for (let file of files) {
+                const response = await fetch(file);
+                const data = await response.json();
+                allGoals = allGoals.concat(data);
+            }
+            document.getElementById('loader').style.display = 'none';
+            render();
+        } catch (e) {
+            document.getElementById('loader').innerText = 'שגיאה בטעינת הקבצים. וודא שהם נמצאים באותה תיקייה.';
         }
-        document.getElementById('search').addEventListener('input', (e) => showGoals(e.target.value));
-        window.onload = () => showGoals();
-    </script>
+    }
+
+    function render() {
+        allGoals.forEach(goal => {
+            const li = document.createElement('li');
+            li.className = 'item';
+            li.innerHTML = `<span class="item-id">#${goal.id}</span> <span>${goal.title}</span>`;
+            li.onclick = () => showDetail(goal);
+            document.getElementById(goal.cluster).appendChild(li);
+        });
+    }
+
+    function showDetail(goal) {
+        document.getElementById('modalTitle').innerText = goal.title;
+        document.getElementById('modalProb').innerText = goal.prob;
+        document.getElementById('modalGoal').innerText = goal.goal;
+        document.getElementById('modalTag').innerText = goal.cluster;
+        document.getElementById('modalTag').className = 'tag ' + 
+            (goal.cluster === 'I AM' ? 'iam-h' : goal.cluster === 'I WE' ? 'iwe-h' : 'itask-h');
+        
+        let methodsHtml = '<strong>שיטות עבודה:</strong><ul>';
+        goal.methods.forEach(m => methodsHtml += `<li>${m}</li>`);
+        methodsHtml += '</ul>';
+        document.getElementById('modalMethods').innerHTML = methodsHtml;
+        
+        document.getElementById('myModal').style.display = "block";
+    }
+
+    function closeModal() { document.getElementById('myModal').style.display = "none"; }
+
+    function filter() {
+        const val = document.getElementById('search').value.toLowerCase();
+        document.querySelectorAll('.item').forEach(el => {
+            el.style.display = el.innerText.toLowerCase().includes(val) ? 'flex' : 'none';
+        });
+    }
+
+    window.onclick = (event) => { if (event.target == document.getElementById('myModal')) closeModal(); }
+    loadData();
+</script>
 </body>
 </html>
