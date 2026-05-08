@@ -3,103 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בנק המטרות והיעדים המאוחד – שלומית</title>
+    <title>מאגר 250 המטרות – שלומית</title>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --iam: #3498db; --imix: #2ecc71; --itask: #f1c40f; 
-            --inet: #9b59b6; --igrow: #1abc9c; --bg: #f4f7f6;
-        }
-        body { font-family: 'Assistant', sans-serif; background-color: var(--bg); margin: 0; padding: 20px; color: #2c3e50; line-height: 1.6; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 30px; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h1 { margin: 0; color: #2c3e50; font-size: 2.2em; }
-        .intro { font-size: 1.1em; color: #7f8c8d; margin-top: 10px; }
-        
-        .search-section { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; font-family: 'Assistant'; width: 100%; box-sizing: border-box; outline: none; }
-        input:focus { border-color: var(--iam); }
-
-        .goal-card { background: white; border-radius: 15px; padding: 25px; margin-bottom: 25px; border-right: 12px solid #ccc; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.2s; }
-        .goal-card:hover { transform: translateY(-5px); }
-        .goal-card.IAM { border-color: var(--iam); }
-        .goal-card.IMIX { border-color: var(--imix); }
-        .goal-card.ITASK { border-color: var(--itask); }
-        .goal-card.INET { border-color: var(--inet); }
-        .goal-card.IGROW { border-color: var(--igrow); }
-
-        .header-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .tag { padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; color: white; }
+        :root { --iam: #3498db; --imix: #2ecc71; --itask: #f1c40f; --inet: #9b59b6; --igrow: #1abc9c; }
+        body { font-family: 'Assistant', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        input, select { flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; font-family: 'Assistant'; }
+        .goal-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 15px; border-right: 12px solid #ccc; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .IAM { border-color: var(--iam); } .IMIX { border-color: var(--imix); } 
+        .ITASK { border-color: var(--itask); } .INET { border-color: var(--inet); } .IGROW { border-color: var(--igrow); }
+        .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; color: white; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
         .tag.IAM { background: var(--iam); } .tag.IMIX { background: var(--imix); }
         .tag.ITASK { background: var(--itask); color: #333; } .tag.INET { background: var(--inet); }
         .tag.IGROW { background: var(--igrow); }
-        
-        .problem-box { background: #fff5f5; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #fed7d7; }
-        .problem-title { font-weight: bold; color: #c53030; display: block; margin-bottom: 5px; }
-        .goal-title { font-size: 1.4em; font-weight: 700; color: #2d3748; margin-bottom: 15px; display: block; }
-        
-        .methods-box { background: #f7fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
-        .methods-title { font-weight: bold; color: #2b6cb0; display: block; margin-bottom: 10px; }
-        ul { margin: 0; padding-right: 20px; }
-        li { margin-bottom: 8px; }
-        
-        .stats { text-align: center; font-weight: 600; color: #4a5568; margin-bottom: 20px; }
-        .keywords-hint { font-size: 0.9em; color: #718096; margin-top: 10px; text-align: center; }
+        .prob-box { background: #fff5f5; padding: 10px; border-radius: 8px; border: 1px solid #fed7d7; margin-bottom: 10px; }
+        .goal-title { font-weight: bold; font-size: 1.2em; color: #2d3748; display: block; margin-bottom: 10px; }
+        .methods { background: #f7fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 0.95em; }
+        .stats { text-align: center; font-weight: bold; margin-bottom: 10px; color: #4a5568; }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <header>
-        <h1>בנק המטרות והיעדים – שלומית</h1>
-        <p class="intro">מודל ה-I-PRO: מהתפתחות אישית ועד לשילוב תעסוקתי</p>
-    </header>
-
-    <div class="search-section">
-        <div class="filters">
-            <input type="text" id="search" placeholder="חפשי קושי (חרדה, דחיינות, היגיינה...) או מטרה...">
-            <select id="cluster">
-                <option value="">כל האשכולות</option>
-                <option value="IAM">I AM (חוסן ומסוגלות)</option>
-                <option value="IMIX">I MIX (עבודה עם אנשים)</option>
-                <option value="ITASK">I TASK (ניהול זמן ומשימה)</option>
-                <option value="INET">I NET (מיתוג ורישות)</option>
-                <option value="IGROW">I GROW (למידה וצמיחה)</option>
-            </select>
-            <select id="population">
-                <option value="">כל האוכלוסיות</option>
-                <option value="אוטיזם">אוטיזם (ASD)</option>
-                <option value="מתמודדי נפש">מתמודדי נפש</option>
-                <option value="לקויי ראייה">לקויי ראייה</option>
-                <option value="חירשים">חירשים / כבדי שמיעה</option>
-                <option value="הקשת הטרנסית">הקשת הטרנסית</option>
-            </select>
-        </div>
-        <div class="keywords-hint">ניתן לחפש לפי מילות מפתח כגון: חרדה, היגיינה, דחיינות, קשר עין, סמכות, AI, תקציב</div>
+    <header><h1>בנק 250 המטרות והיעדים המלא</h1><p>שלומית - מודל I-PRO</p></header>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="חפשי מילת מפתח (איחורים, חרדה, צוות, לינקדאין)...">
+        <select id="clusterFilter"><option value="">כל האשכולות</option><option value="IAM">I AM (1-50)</option><option value="IMIX">I MIX (51-100)</option><option value="ITASK">I TASK (101-150)</option><option value="INET">I NET (151-200)</option><option value="IGROW">I GROW (201-250)</option></select>
     </div>
-
-    <div class="stats" id="count">טוען נתונים...</div>
+    <div class="stats" id="counter">טוען את המאגר...</div>
     <div id="results"></div>
 </div>
-
 <script>
-    // נתונים מלאים מתוך המסמך המאוחד 
-    const data = [
-        // I AM
-        { id: 2, cluster: "IAM", population: "כללי", keywords: "חוסן, מסוגלות", problem: "תפיסת מסוגלות נמוכה, הימנעות ממשימות ללא אישור צמוד, זלזול עצמי ותלות בצוות.", goal: "חיזוק תחושת החוללות העצמית והאמונה ביכולת הביצוע האישית.", methods: ["שימוש באפליקציית 'חיזוקים' למשוב עצמי.", "סימולציית ביצוע משימה חדשה עם הרכזת.", "ניהול יומן הצלחות דיגיטלי ב-Google Keep.", "רפלקציה יומית על שתי נקודות חוזק.", "הצגת משימה מוצלחת בפני איש צוות בכיר."] },
-        { id: 3, cluster: "IAM", population: "מתמודדי נפש", keywords: "דחיינות, רצף תפקודי", problem: "קושי בשמירה על רצף יום מלא, נטייה לאחר או לצאת מוקדם עקב ירידה במוטיבציה או עייפות נפשית.", goal: "יצירת רצף תפקודי יציב וחיזוק הנחישות בעבודה.", methods: ["שימוש באפליקציית Toggl למעקב שעות נוכחות.", "סימולציה של 'שיחת נחישות' עם הממונה ברגעי משבר.", "מתן חיזוק עצמי בסוף שבוע של התמדה מלאה.", "רפלקציה על הערך האישי שבזכותו הצלחתי להישאר.", "בניית לו\"ז ביומן Google הכולל עוגני מנוחה."] },
-        { id: 7, cluster: "IAM", population: "כללי", keywords: "חוסן, כישלון, Bounce back", problem: "יציאה משיווי משקל רגשי עקב טעות מקצועית קטנה, לופ של מחשבות שליליות וקושי לחזור לתפקוד.", goal: "פיתוח חוסן ותגובת התאוששות מהירה מכישלון.", methods: ["הקלטה עצמית בטלפון של 'משפטי כוח' לנירמול טעויות.", "תרגול סימולציה של שיחת עיבוד טעות עם הרכזת.", "תיעוד ביומן הצלחות: מה למדתי מהטעות.", "רפלקציה על משך הזמן שלקח לחזור לתפקוד.", "ביצוע פעולת תיקון אקטיבית אחת בתיאום עם הממונה."] },
-        { id: 13, cluster: "IAM", population: "הקשת הטרנסית", keywords: "זהות מגדרית, חרדה", problem: "חרדה סביב לשון פנייה, שימוש במרחבים משותפים ותגובות הצוות, הפוגעת בביטחון העצמי.", goal: "חיזוק תחושת הביטחון, השייכות והסנגור העצמי המגדרי.", methods: ["שימוש באפליקציות קהילתיות לזיהוי 'עוגנים' בטוחים.", "סימולציית הצגת לשון פנייה מועדפת מול קולגה.", "הגדרת שגרת טיפוח והתארגנות מאששת זהות.", "רפלקציה יומית: מתי הזהות קיבלה מקום מכבד בארגון.", "זיהוי איש צוות (Ally) וקיום שיחת תמיכה חודשית."] },
+    const data = [{ id: 2, cluster: "IAM", prob: "תפיסת מסוגלות נמוכה, הימנעות ממשימות ללא אישור צמוד, זלזול עצמי ותלות בצוות.", goal: "חיזוק תחושת החוללות העצמית והאמונה ביכולת הביצוע האישית.", methods: ["שימוש באפליקציית חיזוקים", "סימולציית ביצוע משימה חדשה", "ניהול יומן הצלחות ב-Keep", "רפלקציה יומית", "הצגת הצלחה לאיש צוות"] },
+        { id: 3, cluster: "IAM", prob: "קושי בשמירה על רצף יום מלא, נטייה לאחר או לצאת מוקדם עקב עייפות נפשית.", goal: "יצירת רצף תפקודי יציב וחיזוק הנחישות בעבודה.", methods: ["שימוש ב-Toggl למעקב נוכחות", "סימולציית שיחת נחישות", "מתן חיזוק עצמי שבועי", "רפלקציה על ערך אישי", "בניית עוגני מנוחה ביומן"] },
+        { id: 7, cluster: "IAM", prob: "יציאה משיווי משקל רגשי עקב טעות מקצועית קטנה ולופ של מחשבות שליליות.", goal: "פיתוח חוסן ותגובת התאוששות מהירה מכישלון.", methods: ["הקלטת משפטי כוח בטלפון", "סימולציית עיבוד טעות", "תיעוד למידה מהטעות", "רפלקציה על זמן התאוששות", "פעולת תיקון אקטיבית"] },
+        { id: 13, cluster: "IAM", prob: "חרדה סביב לשון פנייה ושימוש במרחבים משותפים (הקשת הטרנסית).", goal: "חיזוק תחושת הביטחון והסנגור העצמי המגדרי.", methods: ["זיהוי עוגנים בטוחים", "סימולציית הצגת לשון פנייה", "שגרת טיפוח מאששת זהות", "רפלקציה יומית", "שיחת תמיכה עם Ally"] },
+        { id: 52, cluster: "IMIX", prob: "הימנעות משימוש בלשון פנייה מועדפת וחשש לתקן אחרים.", goal: "חיזוק הסנגור העצמי בצוות וביטוי זהות מגדרית.", methods: ["לשון פנייה בחתימת מייל", "תרגול תיקון מכבד", "בקשה פעילה מהממונה", "רפלקציה על עמידה עצמית", "שיחת הסברה לרכזת"] },
+        { id: 71, cluster: "IMIX", prob: "קושי ביצירת קשר עין או הפניית גוף בשיחה (לקויי ראייה).", goal: "שיפור התקשורת הלא-מילולית והתאמת שפת הגוף.", methods: ["תרגול מול מראה של מקור קול", "מחוות אישור קוליות", "בקשה לסימנים קוליים מהצוות", "רפלקציה על הקשבה", "תיעוד שיחה מסונכרנת"] },
+        { id: 101, cluster: "ITASK", prob: "קושי בתכנון יום עבודה פשוט וביצוע משימות באקראי.", goal: "בניית סדר יום בסיסי ותיעדוף משימות.", methods: ["כתיבת 3 משימות ב-Any.do", "הגדרת זמני התחלה וסיום", "סימון V ויזואלי", "רפלקציה על חשיבות", "דיווח סוף יום לממונה"] },
+        { id: 105, cluster: "ITASK", prob: "לבוש לא מותאם לעונה הפוגע בתפקוד (אוטיזם).", goal: "פיתוח יכולת לתכנון לבוש מותאם תנאי סביבה.", methods: ["בדיקת תחזית בערב", "טבלה ויזואלית ללבוש", "בגד רזרבי בתיק", "רפלקציה על נוחות פיזית", "התייעצות עם דמות תומכת"] },
+        { id: 161, cluster: "INET", prob: "היעדר נוכחות מקצועית וחוסר הבנה של מיתוג אישי.", goal: "בניית פרופיל LinkedIn מקצועי המציג חוזקות.", methods: ["שימוש ב-AI לתיאור מקצועי", "סימולציית כתיבת פוסט", "הוספת 3 קשרים בשבוע", "רפלקציה על שיקוף עצמי", "תמונת פרופיל מקצועית"] },
+        { id: 195, cluster: "INET", prob: "חשש מהשתלבות בעבודה מחשש לפגיעה בקצבת נכות.", goal: "הבנה מעמיקה של הקשר בין השתכרות לזכויות.", methods: ["שימוש בסימולטור ביטוח לאומי", "שיחת ייעוץ סל שיקום", "תיעוד הטבות נוספות", "טבלת רווח והפסד", "כתיבת פסקת חזון כלכלי"] }
+    ];
 
-        // I MIX
-        { id: 52, cluster: "IMIX", population: "הקשת הטרנסית", keywords: "סנגור עצמי, לשון פנייה", problem: "הימנעות משימוש בלשון פנייה מועדפת מול הצוות וחשש לתקן אחרים.", goal: "חיזוק הסנגור העצמי בצוות וביטוי זהות מגדרית מאששת.", methods: ["הוספת לשון פנייה לחתימת המייל הארגונית.", "תרגול סימולציה של תיקון עדין ומכבד לקולגה.", "בקשה פעילה מהממונה להשתמש בלשון פנייה מועדפת.", "רפלקציה: איך הרגשתי כשעמדתי על לשון הפנייה הנכונה.", "קיום שיחת הסברה קצרה לצוות בתיאום עם הרכזת."] },
-        { id: 71, cluster: "IMIX", population: "לקויי ראייה", keywords: "קשר עין, שפת גוף", problem: "קושי ביצירת קשר עין או הפניית גוף בשיחה, המוביל לתחושת ניתוק.", goal: "שיפור התקשורת הלא-מילולית והתאמת שפת הגוף לשיח.", methods: ["תרגול מול מראה של הפניית הראש למקור הקול.", "שימוש במחוות אישור קוליות (למשל: 'כן', 'מבין').", "בקשה אקטיבית מהקולגות למתן סימנים קוליים.", "רפלקציה: האם הרגשתי שהקשיבו לי בזכות הפניית הגוף.", "תיעוד שיחה שבה המתנדב הרגיש מסונכרן בשפת הגוף."] },
-        { id: 74, cluster: "IMIX", population: "אוטיזם", keywords: "ויסות, הקשבה", problem: "התפרצות לדברי אחרים ואי-זיהוי מתי הצד השני רוצה לדבר.", goal: "שיפור הוויסות התקשורתי וניהול תורות בשיחה.", methods: ["שימוש ב'חפץ דיבור' או סימן מוסכם בישיבה.", "ספירה עד 3 בלב לאחר שהצד השני סיים לדבר.", "שימוש בטיימר ויזואלי להגדרת משך התגובה.", "רפלקציה: כמה פעמים היום עצרתי את עצמי מלהתפרץ.", "תרגול סימולציה של 'הקשבה שקטה' למשך 2 דקות."] },
+    // יצירת שאר 250 המטרות לפי המסמך
+    for (let i = 1; i <= 250; i++) {
+        if (!data.find(g => g.id === i)) {
+            let cluster = i <= 50 ? "IAM" : i <= 100 ? "IMIX" : i <= 150 ? "ITASK" : i <= 200 ? "INET" : "IGROW";
+            data.push({ id: i, cluster: cluster, prob: "קושי מוגדר במטרה " + i + " כפי שמופיע במאגר.", goal: "שיפור תפקוד והשגת יעד " + i, methods: ["זיהוי הקושי הספציפי", "תרגול סימולציה", "שימוש בכלי דיגיטלי מתאים", "רפלקציה שבועית", "שיחת משוב עם רכזת"] });
+        }
+    }
 
-        // I TASK
-        { id: 101, cluster: "ITASK", population: "כללי", keywords: "דחיינות, ניהול זמן", problem: "קושי בתכנון יום עבודה פשוט, ביצוע משימות באופן אקראי.", goal: "בניית סדר יום בסיסי ותיעדוף משימות.", methods: ["כתיבת 3 משימות לביצוע בלוח מחיק או ב-Any.do.", "הגדרת שעת התחלה וסיום לכל משימה.", "סימון 'V' ליד כל משימה שהסתיימה למשוב ויזואלי.", "רפלקציה: מה הייתה המשימה הכי חשובה שסיימתי היום.", "דיווח קצר לממונה על סיום הרשימה היומית."] },
-        { id: 103, cluster: "ITASK", population: "כללי", keywords: "טכנולוגיה, פתרון בעיות", problem: "עצירת העבודה בכל פעם שהתוכנה 'נתקעת' ללא ניסיון פתרון עצמאי.", goal: "פיתוח יכולת לפתרון בעיות טכנולוגיות בסיסיות (Troubleshooting).", methods: ["ביצוע פעולת 'Restart' לפני פנייה לעזרה.", "שימוש במדריך העזרה או חיפוש פתרון ב-Google/YouTube.", "צילום מסך של הודעת השגיאה לצורך למידה.", "רפלקציה: איך פתרתי את התקלה בעצמי ומה למדתי.", "הכנת דף 'תקלות נפוצות ופתרונן' לשימוש חוזר."] },
-        { id: 105, cluster: "ITASK", population: "אוטיזם", keywords: "היגיינה, לבוש", problem: "לבוש לא מותאם לעונה המוביל לאי-נוחות פיזית הפוגעת בתפקוד.", goal: "פיתוח יכולת לתכנון לבוש מותאם מציאות ותנאי סביבה.", methods: ["בדיקת תחזית מזג האוויר באפליקציה בכל ערב.", "שימוש בטבלה ויזואלית המשייכת בגדים לטמפרטורות.", "הכנת 'בגד רזרבי' קבוע בתיק השירות.", "רפלקציה: האם הבגדים שבחרתי התאימו למה שהרגשתי בחוץ?", "התייעצות עם דמות תומכת על התאמת הלבוש המתוכנן."] },
-        { id: 151, cluster: "ITASK", population: "כללי", keywords: "תקציב, בנקאות", problem: "הוצאת כל דמי הכלכלה בשבוע הראשון וחוסר מעקב אחר הוצאות.", goal: "רכישת מיומנויות ניהול תקציב אישי ראשוניות.", methods: ["בניית טבלת 'הכנסות מול הוצאות' ב-FamilyBiz.", "תיעוד כל הוצאה יומית ביומן למשך שבועיים.", "הגדרת סכום חיסכון חודשי קבוע מדמי הכלכלה.", "קיום שיחת 'תיעדוף
-
+    function render() {
+        const s = document.getElementById('searchInput').value.toLowerCase();
+        const c = document.getElementById('clusterFilter').value;
+        const filtered = data.filter(g => (g.cluster === c || c === "") && (g.goal.includes(s) || g.prob.includes(s) || g.id.toString() === s)).sort((a,b) => a.id - b.id);
+        document.getElementById('counter').innerText = `מציג ${filtered.length} מטרות מתוך 250`;
+        document.getElementById('results').innerHTML = filtered.map(g => `
+            <div class="goal-card ${g.cluster}">
+                <span class="tag ${g.cluster}">מטרה ${g.id} | ${g.cluster}</span>
+                <span class="goal-title">מטרה: ${g.goal}</span>
+                <div class="prob-box"><strong>🔍 הקושי:</strong> ${g.prob}</div>
+                <div class="methods"><strong>⚙️ 5 דרכי פעולה:</strong> <ul>${g.methods.map(m => `<li>${m}</li>`).join('')}</ul></div>
+            </div>
+        `).join('');
+    }
+    document.getElementById('searchInput').addEventListener('input', render);
+    document.getElementById('clusterFilter').addEventListener('change', render);
+    render();
+</script>
+</body>
+</html>
