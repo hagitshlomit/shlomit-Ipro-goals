@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מאגר מטרות ויעדים – עמותת שלומית</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50; --secondary: #34495e; --accent: #3498db;
+            --bg: #f4f7f6; --white: #ffffff;
+            --am-i: #d6e4f0; --mix-i: #e2efda; --task-i: #fff2cc; --net-i: #eae4f5; --grow-i: #d8f0eb;
+        }
+        body { font-family: 'Assistant', sans-serif; background-color: var(--bg); margin: 0; padding: 20px; color: var(--primary); }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        .filters { background: var(--white); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        select, input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; font-family: 'Assistant'; }
+        .stats { font-weight: 600; margin-bottom: 15px; }
+        .goal-card { background: var(--white); border-radius: 10px; padding: 20px; margin-bottom: 15px; border-right: 8px solid #ccc; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .goal-card.am_i { border-color: #3498db; } .goal-card.mix_i { border-color: #2ecc71; }
+        .goal-card.task_i { border-color: #f1c40f; } .goal-card.net_i { border-color: #9b59b6; }
+        .goal-card.grow_i { border-color: #1abc9c; }
+        .tag { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; margin-left: 5px; background: #eee; font-weight: bold; }
+        .problem { font-weight: bold; color: #e74c3c; margin-top: 10px; }
+        .goal { font-size: 1.1em; color: var(--primary); margin: 5px 0; font-weight: 700; }
+        .actions { margin-right: 20px; padding: 0; list-style-type: decimal; }
+        .actions li { margin-bottom: 5px; color: #555; }
+        @media (max-width: 600px) { .filters { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>מאגר מטרות ויעדים – שלומית</h1>
+        <p>כלי עבודה לרכזות לחיפוש וסינון מטרות אופרטיביות</p>
+    </header>
+
+    <div class="filters">
+        <input type="text" id="searchInput" placeholder="חיפוש חופשי (מילת מפתח)...">
+        <select id="clusterFilter">
+            <option value="">כל האשכולות</option>
+            <option value="AM I">AM I – המאפשרים</option>
+            <option value="MIX I">MIX I – עבודה עם אנשים</option>
+            <option value="TASK I">TASK I – ניהול זמן ומשימה</option>
+            <option value="NET I">NET I – מיתוג ורישות</option>
+            <option value="GROW I">GROW I – למידה לאורך החיים</option>
+        </select>
+        <select id="skillFilter">
+            <option value="">כל המיומנויות</option>
+            <option value="חוסן">חוסן</option>
+            <option value="מוטיבציה">מוטיבציה</option>
+            <option value="פרואקטיביות">פרואקטיביות</option>
+            <option value="חוללות עצמית">חוללות עצמית</option>
+            <option value="סנגור עצמי">מוגנות / סנגור עצמי</option>
+            <option value="עבודת צוות">עבודת צוות</option>
+            <option value="תכנון זמן">תכנון זמן</option>
+        </select>
+        <select id="popFilter">
+            <option value="">כל האוכלוסיות</option>
+            <option value="אוטיזם">אוטיזם</option>
+            <option value="לקות שכלית">לקות שכלית</option>
+            <option value="מתמודדי נפש">מתמודדי נפש</option>
+            <option value="טרנסים">טרנסים / מגדר</option>
+        </select>
+    </div>
+
+    <div class="stats" id="statsCount">מציג 0 מטרות</div>
+    <div id="goalsContainer"></div>
+</div>
+
+<script>
+    // כאן נמצאים הנתונים - ניתן להוסיף עד 170 מטרות לפי הפורמט הזה
+    const goalsData = [
+        { cluster: "AM I", skill: "חוסן", pop: "מתמודדי נפש", prob: "הצפה רגשית מול משימות חדשות", goal: "שיפור הוויסות הרגשי", actions: ["תרגול 3 טכניקות הרגעה", "שיחה עם הרכזת לאחר אירוע מציף", "ניהול יומן הצלחות קטן"], class: "am_i" },
+        { cluster: "TASK I", skill: "תכנון זמן", pop: "אוטיזם", prob: "קושי בעמידה בלוחות זמנים", goal: "הגעה בזמן לשירות", actions: ["כיוון 3 שעונים מעוררים", "הכנת תיק בערב לפני", "דיווח לרכזת על הגעה בזמן"], class: "task_i" },
+        { cluster: "MIX I", skill: "עבודת צוות", pop: "", prob: "קושי בשיתוף פעולה בצוות", goal: "ביצוע משימה משותפת", actions: ["שיחת תיאום של 5 דקות", "עדכון עמית בהתקדמות", "בקשת עזרה כשצריך"], class: "mix_i" },
+        { cluster: "NET I", skill: "סנגור עצמי", pop: "טרנסים", prob: "קושי בביטוי זהות מגדרית מול הצוות", goal: "חיזוק תחושת הביטחון", actions: ["שיחה עם הממונה על לשון פנייה", "שיתוף הרכזת בעוגני תמיכה", "הכנת כרטיס נגישות אישי"], class: "net_i" }
+        // ... להוסיף כאן את שאר ה-170
+    ];
+
+    function renderGoals() {
+        const container = document.getElementById('goalsContainer');
+        const searchVal = document.getElementById('searchInput').value.toLowerCase();
+        const clusterVal = document.getElementById('clusterFilter').value;
+        const skillVal = document.getElementById('skillFilter').value;
+        const popVal = document.getElementById('popFilter').value;
+
+        const filtered = goalsData.filter(g => {
+            return (g.prob.toLowerCase().includes(searchVal) || g.goal.toLowerCase().includes(searchVal)) &&
+                   (clusterVal === "" || g.cluster === clusterVal) &&
+                   (skillVal === "" || g.skill.includes(skillVal)) &&
+                   (popVal === "" || g.pop.includes(popVal));
+        });
+
+        document.getElementById('statsCount').innerText = `מציג ${filtered.length} מטרות`;
+        container.innerHTML = filtered.map(g => `
+            <div class="goal-card ${g.class}">
+                <div>
+                    <span class="tag">${g.cluster}</span>
+                    <span class="tag">${g.skill}</span>
+                    ${g.pop ? `<span class="tag" style="background:#fce4ec">${g.pop}</span>` : ''}
+                </div>
+                <div class="problem">בעיה: ${g.prob}</div>
+                <div class="goal">מטרה: ${g.goal}</div>
+                <ol class="actions">
+                    ${g.actions.map(a => `<li>${a}</li>`).join('')}
+                </ol>
+            </div>
+        `).join('');
+    }
+
+    document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', renderGoals));
+    renderGoals(); // הרצה ראשונית
+</script>
+</body>
+</html>
