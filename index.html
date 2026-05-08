@@ -3,44 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בנק יעדי התפתחות 1-250</title>
+    <title>בנק יעדי התפתחות</title>
     <style>
-        :root { --iam: #e67e22; --iwe: #27ae60; --itask: #2980b9; --bg: #f8fafc; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #1e293b; line-height: 1.5; }
-        .container { max-width: 1300px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        h1 { text-align: center; color: #0f172a; font-size: 2.2rem; margin-bottom: 10px; }
+        :root {
+            --iam: #e67e22;   /* כתום */
+            --imix: #27ae60;  /* ירוק */
+            --itask: #2980b9; /* כחול */
+            --inet: #8e44ad;  /* סגול */
+            --igrow: #16a085; /* טורקיז */
+            --bg: #f1f5f9;
+        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #1e293b; }
+        .container { max-width: 1400px; margin: auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #0f172a; margin-bottom: 5px; }
         .subtitle { text-align: center; color: #64748b; margin-bottom: 30px; }
         
-        .search-box { width: 100%; padding: 15px 25px; margin-bottom: 30px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; outline: none; transition: 0.3s; box-sizing: border-box; }
-        .search-box:focus { border-color: var(--itask); ring: 3px rgba(41,128,185,0.1); }
+        .search-box { width: 100%; padding: 15px; margin-bottom: 30px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; outline: none; box-sizing: border-box; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 25px; }
-        .cluster-col { background: #f1f5f9; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #e2e8f0; }
-        .cluster-h { padding: 18px; color: white; font-weight: bold; text-align: center; font-size: 1.3rem; }
-        .iam-h { background: var(--iam); } .iwe-h { background: var(--iwe); } .itask-h { background: var(--itask); }
+        /* הגדרת 5 עמודות */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
+        .cluster-col { background: #f8fafc; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; display: flex; flex-direction: column; }
+        .cluster-h { padding: 15px 10px; color: white; font-weight: bold; text-align: center; font-size: 1.1rem; min-height: 50px; display: flex; align-items: center; justify-content: center; }
         
-        .item-list { list-style: none; padding: 10px; margin: 0; max-height: 650px; overflow-y: auto; }
-        .item { background: white; margin-bottom: 12px; padding: 15px; border-radius: 12px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; display: flex; flex-direction: column; gap: 5px; }
-        .item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-color: #cbd5e1; }
-        .item-header { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #0f172a; font-size: 1.05rem; }
-        .item-id { background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 6px; font-size: 0.85rem; }
-        .item-prob-preview { font-size: 0.9rem; color: #64748b; border-top: 1px solid #f1f5f9; pt: 5px; margin-top: 5px; font-style: italic; }
+        .iam-h { background: var(--iam); }
+        .imix-h { background: var(--imix); }
+        .itask-h { background: var(--itask); }
+        .inet-h { background: var(--inet); }
+        .igrow-h { background: var(--igrow); }
 
-        /* Modal Structure */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px); overflow-y: auto; }
-        .modal-content { background: white; margin: 2% auto; padding: 0; width: 95%; max-width: 800px; border-radius: 24px; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); overflow: hidden; }
-        .modal-header { padding: 30px; color: white; position: relative; }
-        .close { position: absolute; left: 20px; top: 20px; font-size: 30px; cursor: pointer; color: white; opacity: 0.8; }
-        .close:hover { opacity: 1; }
-        
-        .modal-body { padding: 30px; display: flex; flex-direction: column; gap: 20px; }
-        .card { background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #f1f5f9; }
-        .card-label { font-weight: bold; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 8px; display: block; color: #64748b; }
-        .card-text { font-size: 1.1rem; color: #1e293b; }
-        
-        .methods-grid { display: grid; grid-template-columns: 1fr; gap: 10px; list-style: none; padding: 0; margin: 0; }
-        .method-item { background: white; padding: 12px 18px; border-radius: 10px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px; }
-        .method-item::before { content: "•"; color: var(--itask); font-weight: bold; font-size: 1.5rem; }
+        .item-list { list-style: none; padding: 8px; margin: 0; max-height: 600px; overflow-y: auto; }
+        .item { background: white; margin-bottom: 10px; padding: 12px; border-radius: 8px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; }
+        .item:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 4px; }
+        .item-id { color: #64748b; font-size: 0.8rem; margin-left: 5px; }
+        .item-prob { font-size: 0.85rem; color: #94a3b8; font-style: italic; line-height: 1.3; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px); }
+        .modal-content { background: white; margin: 5% auto; width: 90%; max-width: 700px; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+        .modal-header { padding: 25px; color: white; }
+        .close { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; color: white; }
+        .modal-body { padding: 25px; }
+        .card { background: #f1f5f9; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .card-label { font-weight: bold; font-size: 0.8rem; color: #64748b; display: block; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -48,102 +53,89 @@
 <div class="container">
     <h1>בנק יעדי התפתחות</h1>
     <p class="subtitle">ניהול ידע ומצוינות מקצועית | 1-250</p>
-    <div id="loader" style="text-align:center; padding: 20px; color: var(--iam); font-weight: bold;">טוען את בנק היעדים...</div>
-    <input type="text" id="search" class="search-box" placeholder="חפשי יעד, בעיה או מספר יעד..." onkeyup="filter()">
+    <input type="text" id="search" class="search-box" placeholder="חפשי לפי שם, בעיה או מספר..." onkeyup="filter()">
     
     <div class="grid">
-        <div class="cluster-col"><div class="cluster-h iam-h">I AM - אישי</div><ul id="I AM" class="item-list"></ul></div>
-        <div class="cluster-col"><div class="cluster-h iwe-h">I WE - צוות</div><ul id="I WE" class="item-list"></ul></div>
-        <div class="cluster-col"><div class="cluster-h itask-h">I TASK - משימות</div><ul id="I TASK" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h iam-h">I AM<br>(1-50)</div><ul id="I AM" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h imix-h">I MIX<br>(51-100)</div><ul id="I MIX" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h itask-h">I TASK<br>(101-160)</div><ul id="I TASK" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h inet-h">I NET<br>(161-210)</div><ul id="I NET" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h igrow-h">I GROW<br>(211+)</div><ul id="I GROW" class="item-list"></ul></div>
     </div>
 </div>
 
 <div id="myModal" class="modal">
     <div class="modal-content">
-        <div id="modalHeader" class="modal-header">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modalIdLabel" style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 5px;"></div>
-            <h2 id="modalTitle" style="margin:0; font-size: 1.8rem;"></h2>
-        </div>
+        <div id="modalHeader" class="modal-header"><span class="close" onclick="closeModal()">&times;</span><h2 id="modalTitle" style="margin:0;"></h2></div>
         <div class="modal-body">
-            <div class="card"><span class="card-label">הבעיה שהוגדרה</span><div id="modalProb" class="card-text"></div></div>
-            <div class="card"><span class="card-label">המטרה להתפתחות</span><div id="modalGoal" class="card-text"></div></div>
-            <div class="card" style="background: #f0f7ff; border-color: #e0f2fe;">
-                <span class="card-label" style="color: #0369a1;">שיטות עבודה (הדרכים לביצוע)</span>
-                <ul id="modalMethods" class="methods-grid"></ul>
-            </div>
+            <div class="card"><span class="card-label">הבעיה:</span><div id="modalProb"></div></div>
+            <div class="card"><span class="card-label">המטרה:</span><div id="modalGoal"></div></div>
+            <div class="card" style="background:#e0f2fe"><span class="card-label">שיטות עבודה:</span><ul id="modalMethods" style="margin:0; padding-right:20px;"></ul></div>
         </div>
     </div>
 </div>
 
 <script>
     let allGoals = [];
-    const files = [
-        '1-50.json', '51-100.json', '101-150.json', '151-200.json', '201-250.json',
-        '1-50.json.txt', '51-100.json.txt', '101-150.json.txt', '151-200.json.txt', '201-250.json.txt'
-    ];
+    const files = ['1-50.json', '51-100.json', '101-150.json', '151-200.json', '201-250.json'];
 
     async function loadData() {
-        for (let file of files) {
+        for (let f of files) {
             try {
-                const response = await fetch(file);
-                if (response.ok) {
-                    const data = await response.json();
-                    data.forEach(goal => {
-                        if (!allGoals.find(g => g.id === goal.id)) allGoals.push(goal);
-                    });
+                const r = await fetch(f + '?v=' + Date.now()); // מונע Cache
+                if (r.ok) {
+                    const data = await r.json();
+                    data.forEach(g => { if(!allGoals.find(x => x.id === g.id)) allGoals.push(g); });
                 }
             } catch (e) {}
         }
-        document.getElementById('loader').style.display = 'none';
         render();
     }
 
     function render() {
         allGoals.sort((a,b) => a.id - b.id);
-        const lists = {'I AM': document.getElementById('I AM'), 'I WE': document.getElementById('I WE'), 'I TASK': document.getElementById('I TASK')};
+        const containers = {
+            'I AM': document.getElementById('I AM'),
+            'I MIX': document.getElementById('I MIX'),
+            'I TASK': document.getElementById('I TASK'),
+            'I NET': document.getElementById('I NET'),
+            'I GROW': document.getElementById('I GROW')
+        };
         
+        // ניקוי רשימות לפני רינדור
+        Object.values(containers).forEach(c => c.innerHTML = '');
+
         allGoals.forEach(goal => {
             const li = document.createElement('li');
             li.className = 'item';
             li.innerHTML = `
-                <div class="item-header"><span class="item-id">#${goal.id}</span> <span>${goal.title}</span></div>
-                <div class="item-prob-preview">בעיה: ${goal.prob}</div>
+                <span class="item-title"><span class="item-id">#${goal.id}</span> ${goal.title}</span>
+                <div class="item-prob">${goal.prob}</div>
             `;
             li.onclick = () => showDetail(goal);
-            if(lists[goal.cluster]) lists[goal.cluster].appendChild(li);
+            if(containers[goal.cluster.toUpperCase()]) {
+                containers[goal.cluster.toUpperCase()].appendChild(li);
+            }
         });
     }
 
-    function showDetail(goal) {
-        const header = document.getElementById('modalHeader');
-        const color = goal.cluster === 'I AM' ? 'var(--iam)' : goal.cluster === 'I WE' ? 'var(--iwe)' : 'var(--itask)';
-        header.style.backgroundColor = color;
-        
-        document.getElementById('modalIdLabel').innerText = goal.cluster + ' | יעד #' + goal.id;
-        document.getElementById('modalTitle').innerText = goal.title;
-        document.getElementById('modalProb').innerText = goal.prob;
-        document.getElementById('modalGoal').innerText = goal.goal;
-        
-        const methodsList = document.getElementById('modalMethods');
-        methodsList.innerHTML = goal.methods.map(m => `<li class="method-item">${m}</li>`).join('');
-        
+    function showDetail(g) {
+        const colors = {'I AM': 'var(--iam)', 'I MIX': 'var(--imix)', 'I TASK': 'var(--itask)', 'I NET': 'var(--inet)', 'I GROW': 'var(--igrow)'};
+        document.getElementById('modalHeader').style.backgroundColor = colors[g.cluster.toUpperCase()] || '#333';
+        document.getElementById('modalTitle').innerText = g.title;
+        document.getElementById('modalProb').innerText = g.prob;
+        document.getElementById('modalGoal').innerText = g.goal;
+        document.getElementById('modalMethods').innerHTML = g.methods.map(m => `<li>${m}</li>`).join('');
         document.getElementById('myModal').style.display = "block";
-        document.body.style.overflow = "hidden"; // מונע גלילה של הרקע
     }
 
-    function closeModal() { 
-        document.getElementById('myModal').style.display = "none"; 
-        document.body.style.overflow = "auto";
-    }
-    
+    function closeModal() { document.getElementById('myModal').style.display = "none"; }
     function filter() {
         const val = document.getElementById('search').value.toLowerCase();
         document.querySelectorAll('.item').forEach(el => {
-            el.style.display = el.innerText.toLowerCase().includes(val) ? 'flex' : 'none';
+            el.style.display = el.innerText.toLowerCase().includes(val) ? 'block' : 'none';
         });
     }
-
     window.onclick = (e) => { if (e.target == document.getElementById('myModal')) closeModal(); }
     loadData();
 </script>
