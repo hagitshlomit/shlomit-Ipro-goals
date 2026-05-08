@@ -3,36 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בנק יעדי התפתחות 1-250</title>
+    <title>אינדקס יעדי התפתחות</title>
     <style>
-        :root { --iam: #e67e22; --iwe: #27ae60; --itask: #2980b9; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #2c3e50; }
-        .container { max-width: 1200px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: var(--itask); }
-        .search-box { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #eee; border-radius: 30px; font-size: 18px; outline: none; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .cluster-col { border-radius: 10px; border: 1px solid #eee; overflow: hidden; background: #fff; }
-        .cluster-h { padding: 15px; color: white; font-weight: bold; text-align: center; }
-        .iam-h { background: var(--iam); } .iwe-h { background: var(--iwe); } .itask-h { background: var(--itask); }
-        .item-list { list-style: none; padding: 0; margin: 0; max-height: 500px; overflow-y: auto; }
-        .item { padding: 12px; border-bottom: 1px solid #f9f9f9; cursor: pointer; display: flex; align-items: center; transition: 0.2s; }
-        .item:hover { background: #f0f7ff; }
-        .item-id { background: #eee; padding: 2px 8px; border-radius: 4px; margin-left: 10px; font-weight: bold; min-width: 35px; text-align: center; }
+        :root { --iam: #e67e22; --iwe: #27ae60; --itask: #2980b9; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; direction: rtl; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #1a2a3a; font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
         
+        .search-box { width: 100%; padding: 18px 25px; margin-bottom: 40px; border: 2px solid #e0e0e0; border-radius: 50px; font-size: 1.1rem; outline: none; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .search-box:focus { border-color: var(--itask); box-shadow: 0 4px 12px rgba(41,128,185,0.2); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .cluster-col { background: #fff; border-radius: 15px; border: 1px solid #eaeaea; overflow: hidden; display: flex; flex-direction: column; }
+        .cluster-h { padding: 20px; color: white; font-weight: bold; text-align: center; font-size: 1.4rem; letter-spacing: 1px; }
+        .iam-h { background: var(--iam); } .iwe-h { background: var(--iwe); } .itask-h { background: var(--itask); }
+        
+        .item-list { list-style: none; padding: 0; margin: 0; max-height: 600px; overflow-y: auto; }
+        .item { padding: 15px 20px; border-bottom: 1px solid #f5f5f5; cursor: pointer; display: flex; align-items: center; transition: 0.2s; }
+        .item:hover { background: #f8fbff; transform: translateX(-5px); }
+        .item-id { background: #f0f0f0; color: #555; padding: 3px 10px; border-radius: 6px; margin-left: 15px; font-weight: bold; font-size: 0.9rem; min-width: 40px; text-align: center; }
+        .item-text { font-size: 1.05rem; font-weight: 500; }
+
         /* Modal */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
-        .modal-content { background: white; margin: 5% auto; padding: 30px; width: 90%; max-width: 650px; border-radius: 15px; position: relative; line-height: 1.6; }
-        .close { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; }
-        .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; color: white; margin-bottom: 15px; font-size: 0.9em; }
-        .section-title { font-weight: bold; color: #444; margin-top: 15px; display: block; border-right: 3px solid var(--itask); padding-right: 10px; }
-        .content-box { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
+        .modal-content { background: white; margin: 5% auto; padding: 40px; width: 90%; max-width: 750px; border-radius: 25px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close { position: absolute; left: 25px; top: 20px; font-size: 35px; cursor: pointer; color: #ccc; }
+        .close:hover { color: #666; }
+        .tag { display: inline-block; padding: 6px 18px; border-radius: 50px; color: white; margin-bottom: 20px; font-size: 0.9rem; font-weight: bold; }
+        
+        .modal-body h3 { font-size: 1.2rem; color: #2c3e50; margin: 20px 0 8px 0; border-right: 4px solid #ddd; padding-right: 12px; }
+        .modal-body p { background: #f9f9f9; padding: 15px; border-radius: 12px; margin: 0; line-height: 1.6; }
+        .methods-list { background: #f0f7ff; padding: 20px 40px; border-radius: 12px; border-right: 4px solid var(--itask); }
+        .methods-list li { margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>אינדקס יעדי התפתחות (1-250)</h1>
-    <input type="text" id="search" class="search-box" placeholder="חפשו שם יעד, תוכן או מספר..." onkeyup="filter()">
+    <h1>אינדקס יעדי התפתחות</h1>
+    <p class="subtitle">ניהול ידע ומצוינות מקצועית | 1-250</p>
+    <div id="loader" style="text-align:center; padding: 20px; color: #e67e22; font-weight: bold;">טוען את בנק היעדים...</div>
+    <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי לפי שם, מספר או תוכן היעד..." onkeyup="filter()">
     
     <div class="grid">
         <div class="cluster-col"><div class="cluster-h iam-h">I AM - אישי וחוסן</div><ul id="I AM" class="item-list"></ul></div>
@@ -45,33 +58,49 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
         <div id="modalTag" class="tag"></div>
-        <h2 id="modalTitle" style="margin-top:0;"></h2>
+        <h2 id="modalTitle" style="font-size: 2rem; margin-bottom: 10px;"></h2>
         <div class="modal-body">
-            <span class="section-title">הבעיה:</span>
-            <div id="modalProb" class="content-box"></div>
-            <span class="section-title">המטרה:</span>
-            <div id="modalGoal" class="content-box"></div>
-            <span class="section-title">שיטות עבודה:</span>
-            <div id="modalMethods" class="content-box" style="background:#f0f7ff;"></div>
+            <h3>הבעיה</h3><p id="modalProb"></p>
+            <h3>המטרה</h3><p id="modalGoal"></p>
+            <h3>שיטות עבודה (5 דרכים)</h3>
+            <ul id="modalMethods" class="methods-list"></ul>
         </div>
     </div>
 </div>
 
 <script>
-    // שים לב: בגלל אורך הטקסט המלא של 250 יעדים, הכנסתי כאן את המבנה.
-    // עליך להעתיק את כל רשימת היעדים מהקובץ "קוד לאתר.txt" שהעלית קודם לתוך הסוגריים של allGoals.
-    const allGoals = [
-        { id: 1, cluster: "I AM", title: "ניהול זמן ותיעוד פעילות", prob: "קושי במעקב אחר הספק המשימות וניהול סדרי עדיפויות.", goal: "יצירת שגרת תיעוד יומית לשיפור היעילות.", methods: ["שימוש ביומן דיגיטלי", "תיעוד בסיום כל משימה", "רפלקציה שבועית על זמנים"] },
-        // ... כאן תדביק את כל שאר היעדים מהקובץ שלך ...
+    let allGoals = [];
+    // רשימת קבצים לניסיון טעינה (תומך בשני הפורמטים שראיתי בגיט שלך)
+    const files = [
+        '1-50.json', '51-100.json', '101-150.json', '151-200.json', '201-250.json',
+        '1-50.json.txt', '51-100.json.txt', '101-150.json.txt', '151-200.json.txt', '201-250.json.txt'
     ];
 
-    function init() {
+    async function loadData() {
+        for (let file of files) {
+            try {
+                const response = await fetch(file);
+                if (response.ok) {
+                    const data = await response.json();
+                    // מניעת כפילויות אם קובץ נטען פעמיים (גם כ-json וגם כ-txt)
+                    data.forEach(goal => {
+                        if (!allGoals.find(g => g.id === goal.id)) allGoals.push(goal);
+                    });
+                }
+            } catch (e) { /* שגיאה שקטה ומעבר לקובץ הבא */ }
+        }
+        document.getElementById('loader').style.display = 'none';
+        render();
+    }
+
+    function render() {
         allGoals.sort((a,b) => a.id - b.id);
         const lists = {'I AM': document.getElementById('I AM'), 'I WE': document.getElementById('I WE'), 'I TASK': document.getElementById('I TASK')};
+        
         allGoals.forEach(goal => {
             const li = document.createElement('li');
             li.className = 'item';
-            li.innerHTML = `<span class="item-id">#${goal.id}</span> <span>${goal.title}</span>`;
+            li.innerHTML = `<span class="item-id">#${goal.id}</span> <span class="item-text">${goal.title}</span>`;
             li.onclick = () => showDetail(goal);
             if(lists[goal.cluster]) lists[goal.cluster].appendChild(li);
         });
@@ -83,19 +112,25 @@
         document.getElementById('modalGoal').innerText = goal.goal;
         document.getElementById('modalTag').innerText = goal.cluster;
         document.getElementById('modalTag').className = 'tag ' + (goal.cluster === 'I AM' ? 'iam-h' : goal.cluster === 'I WE' ? 'iwe-h' : 'itask-h');
-        document.getElementById('modalMethods').innerHTML = '<ul>' + goal.methods.map(m => `<li>${m}</li>`).join('') + '</ul>';
+        
+        const methodsList = document.getElementById('modalMethods');
+        methodsList.innerHTML = goal.methods.map(m => `<li>${m}</li>`).join('');
+        
         document.getElementById('myModal').style.display = "block";
     }
 
     function closeModal() { document.getElementById('myModal').style.display = "none"; }
+    
     function filter() {
         const val = document.getElementById('search').value.toLowerCase();
         document.querySelectorAll('.item').forEach(el => {
-            el.style.display = el.innerText.toLowerCase().includes(val) ? 'flex' : 'none';
+            const match = el.innerText.toLowerCase().includes(val);
+            el.style.display = match ? 'flex' : 'none';
         });
     }
+
     window.onclick = (e) => { if (e.target == document.getElementById('myModal')) closeModal(); }
-    init();
+    loadData();
 </script>
 </body>
 </html>
