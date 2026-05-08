@@ -3,141 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בנק המטרות - שלומית I-PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>בנק המטרות I-PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --iam: #3498db; --imix: #2ecc71; --itask: #f1c40f; --inet: #9b59b6; --igrow: #1abc9c; }
-        body { font-family: 'Assistant', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #2d3748; line-height: 1.6; }
-        .container { max-width: 900px; margin: 0 auto; }
-        header { text-align: center; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border-bottom: 6px solid var(--iam); }
-        .search-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; position: sticky; top: 10px; z-index: 100; }
-        input { padding: 15px; border: 2px solid #eee; border-radius: 12px; font-size: 18px; width: 100%; box-sizing: border-box; font-family: 'Assistant'; outline: none; }
-        input:focus { border-color: var(--iam); }
-        .goal-card { background: white; border-radius: 15px; padding: 25px; margin-bottom: 25px; border-right: 15px solid #ccc; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-        .goal-card.IAM { border-color: var(--iam); } .goal-card.IMIX { border-color: var(--imix); } 
-        .goal-card.ITASK { border-color: var(--itask); } .goal-card.INET { border-color: var(--inet); } 
-        .goal-card.IGROW { border-color: var(--igrow); }
-        .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; color: white; margin-bottom: 10px; }
-        .IAM .tag { background: var(--iam); } .IMIX .tag { background: var(--imix); } 
-        .ITASK .tag { background: var(--itask); color: #333; } .INET .tag { background: var(--inet); } 
-        .IGROW .tag { background: var(--igrow); }
-        h2 { margin: 10px 0; color: #2d3748; font-size: 1.4em; font-weight: 700; }
-        .section { margin-top: 15px; }
-        .section-title { font-weight: bold; color: #4a5568; margin-bottom: 5px; display: block; }
-        .methods-list { margin-top: 10px; padding-right: 20px; list-style-type: none; }
-        .methods-list li { position: relative; margin-bottom: 8px; padding-right: 25px; }
-        .methods-list li::before { content: "🔹"; position: absolute; right: 0; color: var(--iam); }
-        .stats { text-align: center; font-weight: bold; margin-bottom: 20px; color: #718096; }
+        body { font-family: 'Assistant', sans-serif; background-color: #f4f7f6; padding: 20px; color: #2d3748; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .search-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; position: sticky; top: 10px; z-index: 100; }
+        input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ddd; font-size: 18px; outline: none; }
+        .goal-card { background: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; border-right: 15px solid #3498db; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .methods-list { margin-right: 20px; }
+        .tag { font-size: 0.8em; color: #7f8c8d; font-weight: bold; }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <header>
-        <h1>בנק 250 המטרות והיעדים המאוחד</h1>
-        <p>מודל I-PRO | מערכת חיפוש חכמה לרכזות</p>
-    </header>
-
-    <div class="search-box">
-        <input type="text" id="search" placeholder="חפשי כל מילה (למשל: שינה, איחור, היגיינה, חרדה, סמכות)...">
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="חפשי קושי, מטרה או מספר (למשל: איחור, 195, חוסן)...">
+        </div>
+        <div id="results"></div>
     </div>
 
-    <div class="stats" id="count">טוען את המאגר...</div>
-    <div id="results"></div>
-</div>
+    <script src="goals_data.js"></script>
+    <script>
+        function render(filter = '') {
+            const results = document.getElementById('results');
+            results.innerHTML = '';
+            const filtered = goalsData.filter(g => 
+                g.title.includes(filter) || g.prob.includes(filter) || g.keywords.includes(filter) || g.id.toString() === filter
+            ).sort((a,b) => a.id - b.id);
 
-<script>
-    const data = [
-        {
-            id: 1, cluster: "IAM", title: "חיזוק תחושת חוללות עצמית",
-            prob: "תפיסת מסוגלות נמוכה, הימנעות ממשימות ללא אישור צמוד, זלזול עצמי ותלות בצוות.",
-            goal: "חיזוק תחושת החוללות העצמית והאמונה ביכולת הביצוע האישית.",
-            keywords: "מסוגלות, ביטחון, תלות, חוללות",
-            methods: [
-                "שימוש באפליקציית 'חיזוקים' בטלפון למתן משוב עצמי חיובי בסיום כל שלב במשימה.",
-                "סימולציית ביצוע משימה חדשה עם הרכזת בסביבה מבוקרת טרם הביצוע בשטח.",
-                "ניהול יומן הצלחות דיגיטלי ב-Google Keep לתיעוד 3 הישגים קטנים בסוף כל יום.",
-                "תרגול משפטי 'דיבור עצמי מקדם' מול המראה לפני תחילת יום השירות.",
-                "ביצוע משימה עצמאית קטנה והצגת התוצר לממונה לקבלת משוב בונה."
-            ]
-        },
-        {
-            id: 34, cluster: "IAM", title: "שיפור היגיינת שינה וערנות",
-            prob: "קושי בקימה בבוקר עקב הרגלי שינה לא סדירים, גלישה לילית בטלפון ועייפות מצטברת.",
-            goal: "יצירת שגרת שינה תומכת תפקוד להגברת הערנות והחיוניות ביום השירות.",
-            keywords: "שינה, בוקר, עייפות, ערנות, איחור",
-            methods: [
-                "הגדרת שעת כיבוי מסכים קבועה שעה לפני השינה והנחת הטלפון מחוץ לחדר.",
-                "שימוש באפליקציית מעקב שינה לניתוח איכות המנוחה וזיהוי הפרעות.",
-                "בניית טקס שינה קבוע הכולל הרפיה או קריאה ללא מסכים.",
-                "חשיפה לאור שמש מיד עם הקימה לסנכרון השעון הביולוגי.",
-                "ניהול יומן ערנות למשך שבוע לזיהוי שעות השפל והשיא במהלך היום."
-            ]
-        },
-        {
-            id: 45, cluster: "IAM", title: "שמירה על היגיינה אישית והופעה",
-            prob: "קושי בשמירה על היגיינה אישית והופעה מסודרת הפוגעת בתדמית המקצועית ובשילוב החברתי.",
-            goal: "שיפור המודעות העצמית והסנגור בנושא היגיינה והופעה ייצוגית.",
-            keywords: "היגיינה, לבוש, ריח, טיפוח, מראה",
-            methods: [
-                "בניית שגרת בוקר קבועה הכוללת רשימת תיוג (Checklist) להיגיינה.",
-                "הכנת ערכת רענון אישית בתיק (דאודורנט, מגבונים, מסרק).",
-                "צילום עצמי לבדיקת הופעה מול המראה לפני היציאה לשירות.",
-                "ניהול טבלת הרגלים יומית לתיעוד פעולות טיפוח והיגיינה.",
-                "שיחת ייעוץ עם הרכזת בנושא קוד לבוש המותאם למקום השירות."
-            ]
-        },
-        {
-            id: 110, cluster: "ITASK", title: "דייקנות ועמידה בלוחות זמנים",
-            prob: "איחורים חוזרים לתחילת יום השירות ולישיבות צוות, קושי בהערכת זמני התארגנות ונסיעה.",
-            goal: "פיתוח מיומנויות ניהול זמן להגעה דייקנית ועקבית למקום השירות.",
-            keywords: "איחור, זמן, הגעה, בוקר, דייקנות",
-            methods: [
-                "תכנון זמן יציאה הכולל 'מרווח ביטחון' של 15 דקות לבלת\"מים.",
-                "הכנת הציוד והלבוש בערב הקודם לקיצור זמן ההתארגנות בבוקר.",
-                "דיווח הגעה באפליקציית Toggl מיד עם הכניסה למבנה השירות.",
-                "ניתוח גורמי מעכב בבוקר (למשל סלולרי) ומציאת פתרונות עוקפים.",
-                "בדיקת עומסי תנועה ב-Waze מראש בערב ובבוקר."
-            ]
-        }
-    ];
-
-    // השלמה אוטומטית ל-250 מטרות
-    for (let i = 1; i <= 250; i++) {
-        if (!data.find(g => g.id === i)) {
-            let cluster = i <= 50 ? "IAM" : i <= 100 ? "IMIX" : i <= 150 ? "ITASK" : i <= 200 ? "INET" : "IGROW";
-            data.push({
-                id: i, cluster: cluster, title: "מטרה מספר " + i + " מהמאגר",
-                prob: "קושי תפקודי מפורט כפי שמופיע במסמך עבור יעד " + i,
-                goal: "שיפור מיומנויות והשגת יעד " + i,
-                keywords: "כללי",
-                methods: ["זיהוי הקושי", "תרגול סימולציה", "שימוש בכלי עזר", "רפלקציה", "משוב"]
+            filtered.forEach(g => {
+                results.innerHTML += `
+                    <div class="goal-card">
+                        <div class="tag">מטרה ${g.id} | ${g.cluster}</div>
+                        <h2>${g.title}</h2>
+                        <p><strong>🔍 הבעיה הנצפית:</strong> ${g.prob}</p>
+                        <p><strong>🎯 המטרה:</strong> ${g.goal}</p>
+                        <p><strong>⚙️ 5 דרכי פעולה אופרטיביות:</strong></p>
+                        <ul class="methods-list">${g.methods.map(m => `<li>${m}</li>`).join('')}</ul>
+                    </div>
+                `;
             });
         }
-    }
-
-    function render() {
-        const s = document.getElementById('search').value.toLowerCase();
-        const filtered = data.filter(g => 
-            g.title.includes(s) || g.prob.includes(s) || g.keywords.includes(s) || g.id.toString() === s
-        ).sort((a,b) => a.id - b.id);
-
-        document.getElementById('count').innerText = `נמצאו ${filtered.length} מטרות תואמות`;
-        document.getElementById('results').innerHTML = filtered.map(g => `
-            <div class="goal-card ${g.cluster}">
-                <div class="tag">מטרה ${g.id} | ${g.cluster}</div>
-                <h2>${g.title}</h2>
-                <div class="section"><span class="section-title">🔍 הבעיה הנצפית:</span><div>${g.prob}</div></div>
-                <div class="section"><span class="section-title">🎯 המטרה:</span><div>${g.goal}</div></div>
-                <div class="section"><span class="section-title">⚙️ 5 דרכי פעולה אופרטיביות:</span>
-                    <ul class="methods-list">${g.methods.map(m => `<li>${m}</li>`).join('')}</ul>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    document.getElementById('search').addEventListener('input', render);
-    render();
-</script>
+        document.getElementById('searchInput').addEventListener('input', e => render(e.target.value));
+        window.onload = () => render();
+    </script>
 </body>
 </html>
