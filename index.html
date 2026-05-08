@@ -3,42 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אינדקס יעדי התפתחות 1-250</title>
+    <title>בנק יעדי התפתחות 1-250</title>
     <style>
-        :root { --iam-color: #e67e22; --iwe-color: #27ae60; --itask-color: #2980b9; --bg: #f4f7f6; --text: #2c3e50; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 1200px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        h1 { text-align: center; color: var(--itask-color); margin-bottom: 5px; }
-        p.subtitle { text-align: center; color: #666; margin-bottom: 25px; }
-        .search-box { width: 100%; padding: 15px; margin-bottom: 30px; border: 2px solid #eee; border-radius: 30px; font-size: 18px; outline: none; box-sizing: border-box; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-        .cluster-col { background: #fff; border-radius: 12px; border: 1px solid #eee; overflow: hidden; display: flex; flex-direction: column; min-height: 200px; }
-        .cluster-h { padding: 15px; color: white; font-weight: bold; text-align: center; font-size: 1.2rem; }
-        .iam-h { background: var(--iam-color); } .iwe-h { background: var(--iwe-color); } .itask-h { background: var(--itask-color); }
-        .item-list { list-style: none; padding: 0; margin: 0; max-height: 600px; overflow-y: auto; }
-        .item { padding: 12px 18px; border-bottom: 1px solid #f1f1f1; cursor: pointer; display: flex; align-items: center; transition: 0.2s; }
+        :root { --iam: #e67e22; --iwe: #27ae60; --itask: #2980b9; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #2c3e50; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--itask); }
+        .search-box { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #eee; border-radius: 30px; font-size: 18px; outline: none; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .cluster-col { border-radius: 10px; border: 1px solid #eee; overflow: hidden; background: #fff; }
+        .cluster-h { padding: 15px; color: white; font-weight: bold; text-align: center; }
+        .iam-h { background: var(--iam); } .iwe-h { background: var(--iwe); } .itask-h { background: var(--itask); }
+        .item-list { list-style: none; padding: 0; margin: 0; max-height: 500px; overflow-y: auto; }
+        .item { padding: 12px; border-bottom: 1px solid #f9f9f9; cursor: pointer; display: flex; align-items: center; transition: 0.2s; }
         .item:hover { background: #f0f7ff; }
-        .item-id { background: #eee; padding: 2px 8px; border-radius: 4px; margin-left: 12px; font-size: 0.85em; font-weight: bold; min-width: 35px; text-align: center; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(3px); }
-        .modal-content { background: white; margin: 5% auto; padding: 35px; width: 90%; max-width: 700px; border-radius: 20px; position: relative; line-height: 1.7; }
-        .close { position: absolute; left: 20px; top: 20px; font-size: 30px; cursor: pointer; }
-        .tag { display: inline-block; padding: 5px 15px; border-radius: 20px; color: white; margin-bottom: 15px; font-size: 0.9em; font-weight: bold; }
-        .modal-body h3 { font-size: 1.1rem; color: #444; margin-bottom: 5px; }
-        .modal-body p { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 15px; }
+        .item-id { background: #eee; padding: 2px 8px; border-radius: 4px; margin-left: 10px; font-weight: bold; min-width: 35px; text-align: center; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+        .modal-content { background: white; margin: 5% auto; padding: 30px; width: 90%; max-width: 650px; border-radius: 15px; position: relative; line-height: 1.6; }
+        .close { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; }
+        .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; color: white; margin-bottom: 15px; font-size: 0.9em; }
+        .section-title { font-weight: bold; color: #444; margin-top: 15px; display: block; border-right: 3px solid var(--itask); padding-right: 10px; }
+        .content-box { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>אינדקס יעדי התפתחות</h1>
-    <p class="subtitle">ניהול ידע והתפתחות מקצועית (1-250)</p>
-    <div id="status" style="text-align: center; color: orange; font-weight: bold;">טוען נתונים מהקבצים...</div>
+    <h1>אינדקס יעדי התפתחות (1-250)</h1>
     <input type="text" id="search" class="search-box" placeholder="חפשו שם יעד, תוכן או מספר..." onkeyup="filter()">
     
     <div class="grid">
-        <div class="cluster-col"><div class="cluster-h iam-h">I AM</div><ul id="I AM" class="item-list"></ul></div>
-        <div class="cluster-col"><div class="cluster-h iwe-h">I WE</div><ul id="I WE" class="item-list"></ul></div>
-        <div class="cluster-col"><div class="cluster-h itask-h">I TASK</div><ul id="I TASK" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h iam-h">I AM - אישי וחוסן</div><ul id="I AM" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h iwe-h">I WE - צוות וקהילה</div><ul id="I WE" class="item-list"></ul></div>
+        <div class="cluster-col"><div class="cluster-h itask-h">I TASK - משימות וביצוע</div><ul id="I TASK" class="item-list"></ul></div>
     </div>
 </div>
 
@@ -46,45 +45,29 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
         <div id="modalTag" class="tag"></div>
-        <h2 id="modalTitle"></h2>
+        <h2 id="modalTitle" style="margin-top:0;"></h2>
         <div class="modal-body">
-            <h3>הבעיה:</h3><p id="modalProb"></p>
-            <h3>המטרה:</h3><p id="modalGoal"></p>
-            <h3>שיטות עבודה:</h3><div id="modalMethods"></div>
+            <span class="section-title">הבעיה:</span>
+            <div id="modalProb" class="content-box"></div>
+            <span class="section-title">המטרה:</span>
+            <div id="modalGoal" class="content-box"></div>
+            <span class="section-title">שיטות עבודה:</span>
+            <div id="modalMethods" class="content-box" style="background:#f0f7ff;"></div>
         </div>
     </div>
 </div>
 
 <script>
-    let allGoals = [];
-    // רשימת השמות של הקבצים כפי שהם מופיעים אצלך ב-GitHub
-    const fileNames = ['1-50.json', '51-100.json', '101-150.json', '151-200.json', '201-250.json'];
+    // שים לב: בגלל אורך הטקסט המלא של 250 יעדים, הכנסתי כאן את המבנה.
+    // עליך להעתיק את כל רשימת היעדים מהקובץ "קוד לאתר.txt" שהעלית קודם לתוך הסוגריים של allGoals.
+    const allGoals = [
+        { id: 1, cluster: "I AM", title: "ניהול זמן ותיעוד פעילות", prob: "קושי במעקב אחר הספק המשימות וניהול סדרי עדיפויות.", goal: "יצירת שגרת תיעוד יומית לשיפור היעילות.", methods: ["שימוש ביומן דיגיטלי", "תיעוד בסיום כל משימה", "רפלקציה שבועית על זמנים"] },
+        // ... כאן תדביק את כל שאר היעדים מהקובץ שלך ...
+    ];
 
-    async function loadAllData() {
-        const statusEl = document.getElementById('status');
-        for (let name of fileNames) {
-            try {
-                const response = await fetch(name);
-                if (!response.ok) throw new Error();
-                const data = await response.json();
-                allGoals = allGoals.concat(data);
-            } catch (err) {
-                console.log("Failed to load: " + name);
-            }
-        }
-        
-        if (allGoals.length === 0) {
-            statusEl.innerText = "שגיאה: לא נמצאו נתוני JSON. וודא ששמות הקבצים ב-GitHub תואמים.";
-        } else {
-            statusEl.style.display = "none";
-            render();
-        }
-    }
-
-    function render() {
+    function init() {
         allGoals.sort((a,b) => a.id - b.id);
         const lists = {'I AM': document.getElementById('I AM'), 'I WE': document.getElementById('I WE'), 'I TASK': document.getElementById('I TASK')};
-        
         allGoals.forEach(goal => {
             const li = document.createElement('li');
             li.className = 'item';
@@ -100,8 +83,7 @@
         document.getElementById('modalGoal').innerText = goal.goal;
         document.getElementById('modalTag').innerText = goal.cluster;
         document.getElementById('modalTag').className = 'tag ' + (goal.cluster === 'I AM' ? 'iam-h' : goal.cluster === 'I WE' ? 'iwe-h' : 'itask-h');
-        let mHtml = '<ul>' + goal.methods.map(m => `<li>${m}</li>`).join('') + '</ul>';
-        document.getElementById('modalMethods').innerHTML = mHtml;
+        document.getElementById('modalMethods').innerHTML = '<ul>' + goal.methods.map(m => `<li>${m}</li>`).join('') + '</ul>';
         document.getElementById('myModal').style.display = "block";
     }
 
@@ -113,8 +95,7 @@
         });
     }
     window.onclick = (e) => { if (e.target == document.getElementById('myModal')) closeModal(); }
-    
-    loadAllData();
+    init();
 </script>
 </body>
 </html>
