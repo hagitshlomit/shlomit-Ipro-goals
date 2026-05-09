@@ -1,15 +1,12 @@
 {
-  "ashkol": "I NET",
+  "ashkol": "I CAN",
   "goals": [
     {
       "id": 151,
-      "observed_problem": "קושי בהבנת דרישות התפקיד",
-      "goal_statement": "שיפור הבנת משימות",
+      "observed_problem": "בדיקת שם אשכול חלופי",
+      "goal_statement": "בדיקה",
       "operational_steps": [
-        "פירוק הוראות לשלבים",
-        "רשימת תיוג בקיפ",
-        "שיחת הבהרה",
-        "חיזוק עצמי"
+        "בדיקה"
       ]
     }
   ]
