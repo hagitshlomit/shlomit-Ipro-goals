@@ -35,7 +35,7 @@
 <div class="container">
     <h1>בנק יעדי התפתחות</h1>
     <p class="subtitle">ניהול ידע ומצוינות מקצועית | 1-250</p>
-    <input type="text" id="search" class="search-box" placeholder="חפשי לפי שם, בעיה או מספר..." onkeyup="filter()">
+    <input type="text" id="search" class="search-box" placeholder="חפשי לפי שם, בעיה, מילת מפתח (דחיינות, חרדה...) או מספר..." onkeyup="filter()">
     <div class="grid">
         <div class="cluster-col"><div class="cluster-h iam-h">I AM<br>(1-50)</div><ul id="I AM" class="item-list"></ul></div>
         <div class="cluster-col"><div class="cluster-h imix-h">I MIX<br>(51-100)</div><ul id="I MIX" class="item-list"></ul></div>
@@ -44,58 +44,113 @@
         <div class="cluster-col"><div class="cluster-h igrow-h">I GROW<br>(201+)</div><ul id="I GROW" class="item-list"></ul></div>
     </div>
 </div>
+
 <div id="myModal" class="modal">
     <div class="modal-content">
-        <div id="modalHeader" class="modal-header"><span class="close" onclick="closeModal()">&times;</span><h2 id="modalTitle" style="margin:0;"></h2></div>
+        <div id="modalHeader" class="modal-header">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle" style="margin:0;"></h2>
+        </div>
         <div class="modal-body">
             <div class="card"><span class="card-label">הבעיה:</span><div id="modalProb"></div></div>
             <div class="card"><span class="card-label">המטרה:</span><div id="modalGoal"></div></div>
+            <div id="keywordsCard" class="card" style="display:none;"><span class="card-label">מילות מפתח:</span><div id="modalKeywords" style="color:#e67e22; font-weight:bold;"></div></div>
             <div class="card" style="background:#e0f2fe"><span class="card-label">שיטות עבודה:</span><ul id="modalMethods" style="margin:0; padding-right:20px;"></ul></div>
         </div>
     </div>
 </div>
+
 <script>
     let allGoals = [];
     const files = ['1-50.json', '51-100.json', '101-150.json', '151-200.json', '201-250.json'];
+
     async function loadData() {
         for (let f of files) {
             try {
                 const r = await fetch(f + '?v=' + Date.now());
                 if (r.ok) {
                     const data = await r.json();
-                    data.forEach(g => { if(!allGoals.find(x => x.id === g.id)) allGoals.push(g); });
+                    data.forEach(g => { 
+                        if(!allGoals.find(x => x.id === g.id)) allGoals.push(g); 
+                    });
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.error("Error loading file " + f, e);
+            }
         }
         render();
     }
+
     function render() {
-        const containers = { 'I AM': document.getElementById('I AM'), 'I MIX': document.getElementById('I MIX'), 'I TASK': document.getElementById('I TASK'), 'I NET': document.getElementById('I NET'), 'I GROW': document.getElementById('I GROW') };
+        const containers = { 
+            'I AM': document.getElementById('I AM'), 
+            'I MIX': document.getElementById('I MIX'), 
+            'I TASK': document.getElementById('I TASK'), 
+            'I NET': document.getElementById('I NET'), 
+            'I GROW': document.getElementById('I GROW') 
+        };
+        
         Object.values(containers).forEach(c => c.innerHTML = '');
+        
         allGoals.sort((a,b) => a.id - b.id).forEach(goal => {
             const li = document.createElement('li');
             li.className = 'item';
+            
+            // הכנת מילות המפתח לחיפוש (מומר למחרוזת טקסט)
+            const keys = goal.keywords ? goal.keywords.join(' ') : '';
+            li.setAttribute('data-keywords', keys);
+            
             li.innerHTML = `<span class="item-title">#${goal.id} ${goal.title}</span><div class="item-prob">${goal.prob}</div>`;
             li.onclick = () => showDetail(goal);
+            
             const target = containers[goal.cluster.toUpperCase()];
             if(target) target.appendChild(li);
         });
     }
+
     function showDetail(g) {
         const colors = {'I AM': 'var(--iam)', 'I MIX': 'var(--imix)', 'I TASK': 'var(--itask)', 'I NET': 'var(--inet)', 'I GROW': 'var(--igrow)'};
         document.getElementById('modalHeader').style.backgroundColor = colors[g.cluster.toUpperCase()] || '#333';
         document.getElementById('modalTitle').innerText = g.title;
         document.getElementById('modalProb').innerText = g.prob;
         document.getElementById('modalGoal').innerText = g.goal;
+        
+        // הצגת מילות מפתח במודל אם קיימות
+        const kwCard = document.getElementById('keywordsCard');
+        if (g.keywords && g.keywords.length > 0) {
+            kwCard.style.display = 'block';
+            document.getElementById('modalKeywords').innerText = g.keywords.join(', ');
+        } else {
+            kwCard.style.display = 'none';
+        }
+
         document.getElementById('modalMethods').innerHTML = g.methods.map(m => `<li>${m}</li>`).join('');
         document.getElementById('myModal').style.display = "block";
     }
-    function closeModal() { document.getElementById('myModal').style.display = "none"; }
+
+    function closeModal() { 
+        document.getElementById('myModal').style.display = "none"; 
+    }
+
     function filter() {
         const val = document.getElementById('search').value.toLowerCase();
-        document.querySelectorAll('.item').forEach(el => { el.style.display = el.innerText.toLowerCase().includes(val) ? 'block' : 'none'; });
+        document.querySelectorAll('.item').forEach(el => {
+            const content = el.innerText.toLowerCase();
+            const keywords = el.getAttribute('data-keywords').toLowerCase();
+            
+            // חיפוש בטקסט הגלוי או במילות המפתח הנסתרות
+            if (content.includes(val) || keywords.includes(val)) {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        });
     }
-    window.onclick = (e) => { if (e.target == document.getElementById('myModal')) closeModal(); }
+
+    window.onclick = (e) => { 
+        if (e.target == document.getElementById('myModal')) closeModal(); 
+    }
+
     loadData();
 </script>
 </body>
