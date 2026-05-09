@@ -1,11 +1,20 @@
 [
   {
-    "id": 999,
-    "cluster": "TEST",
-    "title": "Time Management Test",
-    "prob": "Testing if English text appears in the system",
-    "goal": "Goal is to see this text clearly",
-    "keywords": ["test", "english"],
-    "methods": ["Step 1", "Step 2"]
+    "id": 51,
+    "cluster": "I DO",
+    "title": "ניהול זמן ותעדוף משימות",
+    "prob": "המתנדב מתקשה להחליט במה להתחיל.",
+    "goal": "יכולת לתכנן לוז יומי עצמאי.",
+    "keywords": ["ניהול זמן"],
+    "methods": ["מטריצת אייזנהאואר", "רשימת מטלות"]
+  },
+  {
+    "id": 52,
+    "cluster": "I DO",
+    "title": "סדר וארגון",
+    "prob": "עמדת העבודה מבולגנת.",
+    "goal": "תחזוקת סביבת עבודה מאורגנת.",
+    "keywords": ["סדר"],
+    "methods": ["חמש דקות סדר בסוף יום"]
   }
 ]
