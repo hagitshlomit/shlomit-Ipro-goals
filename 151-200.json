@@ -1,8 +1,8 @@
 {
-  "ashkol": "I NET",
+  "ashkol": "INET",
   "goals": [
     {
-      "id": 151,
+      "id": "151",
       "observed_problem": "קושי בהבנת דרישות התפקיד והוראות הממונה",
       "goal_statement": "שיפור הבנת משימות והגדרת דרישות התפקיד",
       "operational_steps": [
