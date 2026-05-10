@@ -11,9 +11,33 @@
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #1e293b; }
         .container { max-width: 1400px; margin: auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         h1 { text-align: center; color: #0f172a; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: #64748b; margin-bottom: 30px; }
-        
-        /* אזור חיפוש משופר */
+        .subtitle { text-align: center; color: #64748b; margin-bottom: 20px; }
+
+        /* סגנון כרטיסיית הסבר לרכזות */
+        .coordinator-info {
+            background: #f8fbff;
+            border: 2px solid #2980b9;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .info-box {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            border-right: 4px solid #2980b9;
+            font-size: 0.9rem;
+        }
+        .info-box span { font-size: 1.2rem; display: block; margin-bottom: 5px; }
+
+        /* אזור חיפוש */
         .search-area { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
         .search-box { flex: 2; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; outline: none; min-width: 250px; }
         .filter-select { flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; background: white; cursor: pointer; min-width: 200px; }
@@ -28,7 +52,7 @@
         .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 4px; }
         .item-prob { font-size: 0.85rem; color: #94a3b8; font-style: italic; line-height: 1.3; }
 
-        /* מודל משופר - גבוה ומרווח */
+        /* מודל */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px); }
         .modal-content { 
             background: white; margin: 2% auto; width: 90%; max-width: 800px; 
@@ -40,34 +64,46 @@
         .modal-body { padding: 25px; overflow-y: auto; flex-grow: 1; }
         .card { background: #f1f5f9; padding: 20px; border-radius: 12px; margin-bottom: 20px; line-height: 1.6; }
         .card-label { font-weight: bold; font-size: 0.9rem; color: #64748b; display: block; margin-bottom: 8px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; }
-        .methods-list li { margin-bottom: 10px; }
+        
+        /* סגנון רשימת שיטות עם כפתור העתקה */
+        .methods-list { list-style: none; padding: 0; }
+        .methods-list li { 
+            background: white; padding: 10px; margin-bottom: 10px; border-radius: 8px; 
+            display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0;
+        }
+        .copy-btn { 
+            background: #0284c7; color: white; border: none; padding: 5px 10px; 
+            border-radius: 5px; cursor: pointer; font-size: 0.8rem; flex-shrink: 0; margin-right: 10px;
+        }
+        .copy-btn:hover { background: #0369a1; }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>בנק יעדי התפתחות</h1>
     <p class="subtitle">ניהול ידע ומצוינות מקצועית | 1-250</p>
+
+    <div class="coordinator-info">
+        <strong>רכזת יקרה,</strong> זהו כלי דינמי להתאמת יעדים למתנדבים. ניתן לדייק כל מטרה בהתאם לצורך האישי.
+        <div class="info-grid">
+            <div class="info-box"><span>🎯</span><strong>גמישות:</strong> נסחי את המטרה בהתאם למתנדב.ת.</div>
+            <div class="info-box"><span>⚙️</span><strong>דרכי פעולה:</strong> בחרי מהבנק את הכלים המתאימים.</div>
+            <div class="info-box"><span>📅</span><strong>ניהול:</strong> בחרי מטרה אחת (2 דרכים) או 2 מטרות (דרך אחת) לרבעון.</div>
+            <div class="info-box"><span>🔍</span><strong>חיפוש:</strong> השתמשי בסינון הנושאים לאיתור מהיר.</div>
+        </div>
+    </div>
     
     <div class="search-area">
         <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (שם מטרה, מספר...)" onkeyup="filter()">
         <select id="tagFilter" class="filter-select" onchange="filter()">
             <option value="">-- בחרי קושי/נושא --</option>
-            <option value="דחיינות">דחיינות וניהול זמן</option>
-            <option value="חרדה">חרדה (חברתית, קהל, ראיון)</option>
-            <option value="חוסן">חוסן וכישלון (Bounce back)</option>
-            <option value="בינה">בינה מלאכותית (AI)</option>
-            <option value="היגיינה">היגיינה, טיפוח ולבוש</option>
-            <option value="אוטיזם">אוטיזם (ASD)</option>
-            <option value="קבלת סמכות">קבלת סמכות והיררכיה</option>
-            <option value="פתרון קונפליקטים">פתרון קונפליקטים ומשוב</option>
-            <option value="קשר עין">קשר עין ושפת גוף</option>
-            <option value="ניהול תקציב">ניהול תקציב ובנקאות</option>
-            <option value="תקשורת דיגיטלית">תקשורת דיגיטלית (מיילים, וואטסאפ)</option>
-            <option value="הקשת הטרנסית">הקשת הטרנסית</option>
-            <option value="מתמודדי נפש">מתמודדי נפש</option>
-            <option value="לקויי ראייה">לקויי ראייה / עיוורון</option>
-            <option value="חירשים">חירשים / כבדי שמיעה</option>
-        </select>
+            <option value="ניהול זמן">דחיינות וניהול זמן</option>
+            <option value="AI">בינה מלאכותית (AI)</option>
+            <option value="חוסן">חוסן וכישלון</option>
+            <option value="תקשורת">תקשורת ומיומנויות חברתיות</option>
+            <option value="אוריינות דיגיטלית">אוריינות דיגיטלית</option>
+            <option value="סדר">סדר וארגון</option>
+            </select>
     </div>
 
     <div class="grid">
@@ -88,8 +124,8 @@
         <div class="modal-body">
             <div class="card"><span class="card-label">הבעיה</span><div id="modalProb"></div></div>
             <div class="card"><span class="card-label">המטרה</span><div id="modalGoal"></div></div>
-            <div id="keywordsCard" class="card" style="display:none; border-right: 5px solid var(--iam);"><span class="card-label">מילות מפתח</span><div id="modalKeywords" style="font-weight:bold; color:var(--iam);"></div></div>
-            <div class="card" style="background:#e0f2fe; border-right: 5px solid #0284c7;"><span class="card-label">שיטות עבודה (5 שלבים)</span><ul id="modalMethods" class="methods-list" style="padding-right:20px;"></ul></div>
+            <div id="keywordsCard" class="card" style="display:none; border-right: 5px solid #64748b;"><span class="card-label">מילות מפתח</span><div id="modalKeywords" style="font-weight:bold;"></div></div>
+            <div class="card" style="background:#e0f2fe; border-right: 5px solid #0284c7;"><span class="card-label">שיטות עבודה (ניתן להעתיק)</span><ul id="modalMethods" class="methods-list"></ul></div>
         </div>
     </div>
 </div>
@@ -132,13 +168,28 @@
         document.getElementById('modalTitle').innerText = g.title;
         document.getElementById('modalProb').innerText = g.prob;
         document.getElementById('modalGoal').innerText = g.goal;
+        
         const kwCard = document.getElementById('keywordsCard');
         if (g.keywords && g.keywords.length > 0) {
             kwCard.style.display = 'block';
             document.getElementById('modalKeywords').innerText = g.keywords.join(', ');
         } else { kwCard.style.display = 'none'; }
-        document.getElementById('modalMethods').innerHTML = g.methods.map(m => `<li>${m}</li>`).join('');
+
+        // יצירת רשימת שיטות עם כפתורי העתקה
+        document.getElementById('modalMethods').innerHTML = g.methods.map(m => `
+            <li>
+                <span>${m}</span>
+                <button class="copy-btn" onclick="copyText('${m.replace(/'/g, "\\'")}')">העתק</button>
+            </li>
+        `).join('');
+        
         document.getElementById('myModal').style.display = "block";
+    }
+
+    function copyText(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert("הטקסט הועתק!");
+        });
     }
 
     function closeModal() { document.getElementById('myModal').style.display = "none"; }
@@ -150,15 +201,9 @@
         document.querySelectorAll('.item').forEach(el => {
             const content = el.innerText.toLowerCase();
             const keywords = el.getAttribute('data-keywords').toLowerCase();
-            
             const matchSearch = content.includes(searchVal) || keywords.includes(searchVal);
             const matchTag = tagVal === "" || keywords.includes(tagVal);
-            
-            if (matchSearch && matchTag) {
-                el.style.display = 'block';
-            } else {
-                el.style.display = 'none';
-            }
+            el.style.display = (matchSearch && matchTag) ? 'block' : 'none';
         });
     }
 
