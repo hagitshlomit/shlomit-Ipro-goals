@@ -13,31 +13,37 @@
         h1 { text-align: center; color: #0f172a; margin-bottom: 5px; }
         .subtitle { text-align: center; color: #64748b; margin-bottom: 20px; }
 
-        .coordinator-info {
-            background: #f8fbff; border: 2px solid #2980b9; border-radius: 15px; padding: 20px; margin-bottom: 30px; line-height: 1.6;
+        /* כרטיסיית הסבר משופרת לרכזות */
+        .coordinator-card {
+            background: linear-gradient(135deg, #f8fbff 0%, #f1f5f9 100%);
+            border: 2px solid #2980b9; border-radius: 15px; padding: 20px; margin-bottom: 30px;
         }
+        .coordinator-card strong { color: #2980b9; font-size: 1.1rem; }
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
-        .info-box { background: white; padding: 12px; border-radius: 10px; border-right: 4px solid #2980b9; font-size: 0.9rem; }
+        .info-box { background: white; padding: 12px; border-radius: 10px; border-right: 4px solid #2980b9; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
 
+        /* אזור חיפוש וסינון */
         .search-area { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
         .search-box { flex: 2; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; min-width: 250px; outline-color: #2980b9; }
         .filter-select { flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; background: white; min-width: 200px; cursor: pointer; }
 
+        /* גריד אשכולות */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
         .cluster-col { background: #f8fafc; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; display: flex; flex-direction: column; min-height: 400px; }
-        .cluster-h { padding: 15px 10px; color: white; font-weight: bold; text-align: center; font-size: 1.1rem; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        .cluster-h { padding: 15px 10px; color: white; font-weight: bold; text-align: center; font-size: 1.1rem; min-height: 60px; display: flex; align-items: center; justify-content: center; line-height: 1.2; }
         .iam-h { background: var(--iam); } .imix-h { background: var(--imix); } .itask-h { background: var(--itask); } .inet-h { background: var(--inet); } .igrow-h { background: var(--igrow); }
         
         .item-list { list-style: none; padding: 8px; margin: 0; max-height: 600px; overflow-y: auto; }
         .item { background: white; margin-bottom: 10px; padding: 12px; border-radius: 8px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; }
-        .item:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-color: #cbd5e1; }
-        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 4px; color: #0f172a; }
-        .item-prob { font-size: 0.85rem; color: #64748b; font-style: italic; line-height: 1.3; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .item:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 4px; color: #1e293b; }
+        .item-prob { font-size: 0.85rem; color: #94a3b8; font-style: italic; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
+        /* מודל */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px); }
         .modal-content { background: white; margin: 2% auto; width: 90%; max-width: 800px; height: 85vh; border-radius: 20px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
-        .modal-header { padding: 25px; color: white; flex-shrink: 0; }
-        .close { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; color: white; line-height: 1; }
+        .modal-header { padding: 25px; color: white; flex-shrink: 0; position: relative; }
+        .close { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; color: white; }
         .modal-body { padding: 25px; overflow-y: auto; flex-grow: 1; }
         .card { background: #f1f5f9; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
         .card-label { font-weight: bold; font-size: 0.9rem; color: #64748b; display: block; margin-bottom: 8px; border-bottom: 1px solid #cbd5e1; }
@@ -53,18 +59,19 @@
     <h1>בנק יעדי התפתחות</h1>
     <p class="subtitle">ניהול ידע ומצוינות מקצועית | 1-250</p>
 
-    <div class="coordinator-info">
-        <strong>רכזת יקרה,</strong> כאן תוכלי למצוא את כל המטרות, כולל מטרות לאוכלוסיות קצה (לקויי ראייה, הקשת הטרנסית ועוד).
+    <div class="coordinator-card">
+        <strong>רכזת יקרה, ברוכה הבאה למאגר המטרות המאוחד.</strong>
         <div class="info-grid">
-            <div class="info-box">🎯 <strong>דיוק:</strong> התאימו את המטרה למתנדב/ת.</div>
-            <div class="info-box">🔍 <strong>חיפוש:</strong> ניתן לחפש לפי "טרנסית", "עיוור" או "היום שאחרי".</div>
+            <div class="info-box">🎯 <strong>חיפוש חכם:</strong> ניתן לחפש לפי כל מילה (למשל: "ראייה", "טרנסית", "היום שאחרי").</div>
+            <div class="info-box">⚙️ <strong>גמישות:</strong> דייקי את נוסח המטרה והשיטות בהתאם למתנדב/ת.</div>
+            <div class="info-box">📋 <strong>העתקה מהירה:</strong> השתמשי בכפתור "העתק" בתוך המטרה כדי להעביר את התוכן לתק"א.</div>
         </div>
     </div>
     
     <div class="search-area">
-        <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (למשל: טרנס, ראייה, סמכות, היום שאחרי)..." onkeyup="filter()">
+        <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (נושא, קושי, לקויי ראייה, טרנסים...)" onkeyup="filter()">
         <select id="tagFilter" class="filter-select" onchange="filter()">
-            <option value="">-- כל נושאי הקושי --</option>
+            <option value="">-- סינון לפי מילות מפתח --</option>
         </select>
     </div>
 
@@ -101,14 +108,12 @@
                 const response = await fetch(f + '?v=' + Date.now());
                 if (response.ok) {
                     const data = await response.json();
-                    data.forEach(g => {
-                        if(!allGoals.find(x => x.id === g.id)) allGoals.push(g);
-                    });
+                    data.forEach(g => { if(!allGoals.find(x => x.id === g.id)) allGoals.push(g); });
                 }
             } catch (e) { console.error("Error loading " + f, e); }
         }
         
-        // מילוי אוטומטי של רשימת הסינון
+        // מילוי מילות המפתח בסינון
         const tagFilter = document.getElementById('tagFilter');
         const keywordsSet = new Set();
         allGoals.forEach(g => { if(g.keywords) g.keywords.forEach(k => keywordsSet.add(k.trim())); });
@@ -132,9 +137,9 @@
             const li = document.createElement('li');
             li.className = 'item';
             
-            // יצירת מחרוזת טקסט ענקית לחיפוש (חיפוש בכל השדות)
-            const searchText = `${goal.title} ${goal.prob} ${goal.goal} ${(goal.keywords || []).join(' ')}`.toLowerCase();
-            li.setAttribute('data-search-index', searchText);
+            // יצירת אינדקס חיפוש הכולל את כל הטקסט של המטרה (חיפוש עומק)
+            const fullText = `${goal.title} ${goal.prob} ${goal.goal} ${(goal.keywords || []).join(' ')}`.toLowerCase();
+            li.setAttribute('data-search-index', fullText);
             li.setAttribute('data-keywords', (goal.keywords || []).join(' '));
             
             li.innerHTML = `<span class="item-title">#${goal.id} ${goal.title}</span><div class="item-prob">${goal.prob}</div>`;
@@ -176,11 +181,11 @@
             const searchIndex = el.getAttribute('data-search-index');
             const keywords = el.getAttribute('data-keywords').toLowerCase();
             
-            // מעכשיו החיפוש בודק אם המילה קיימת בכל מקום בטקסט של המטרה
+            // המנוע מחפש בתוך כל טקסט המטרה (data-search-index)
             const matchSearch = s === "" || searchIndex.includes(s);
             const matchTag = t === "" || keywords.includes(t);
             
-            el.style.display = matchSearch && matchTag ? 'block' : 'none';
+            el.style.display = (matchSearch && matchTag) ? 'block' : 'none';
         });
     }
 
