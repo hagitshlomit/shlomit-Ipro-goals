@@ -79,9 +79,9 @@
     </div>
     
     <div class="search-area">
-        <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי..." onkeyup="filter()">
+        <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (למשל: עיוורים, טרנסית, היום שאחרי)..." onkeyup="filter()">
         <select id="tagFilter" class="filter-select" onchange="filter()">
-            <option value="">-- כל נושאי הקושי --</option>
+            <option value="">-- כל נושאי הקושי (ייטען אוטומטית) --</option>
         </select>
     </div>
 
@@ -125,10 +125,14 @@
             } catch (e) { console.error("Error loading " + f, e); }
         }
         
-        // מילוי מילות המפתח בסינון
+        // יצירת רשימת מילות מפתח לסינון באופן אוטומטי
         const tagFilter = document.getElementById('tagFilter');
         const keywordsSet = new Set();
-        allGoals.forEach(g => { if(g.keywords) g.keywords.forEach(k => keywordsSet.add(k.trim())); });
+        allGoals.forEach(g => { 
+            if(g.keywords) g.keywords.forEach(k => keywordsSet.add(k.trim())); 
+        });
+        
+        // הוספת מילות המפתח מה-JSON לתיבת הבחירה
         Array.from(keywordsSet).sort().forEach(k => {
             const opt = document.createElement('option');
             opt.value = k; opt.innerText = k;
@@ -139,23 +143,31 @@
     }
 
     function render() {
-        const containers = { 'I AM': 'I AM', 'I MIX': 'I MIX', 'I TASK': 'I TASK', 'I NET': 'I NET', 'I GROW': 'I GROW' };
-        for (let id in containers) document.getElementById(id).innerHTML = '';
+        const containers = ['I AM', 'I MIX', 'I TASK', 'I NET', 'I GROW'];
+        containers.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = '';
+        });
 
         allGoals.sort((a,b) => a.id - b.id).forEach(goal => {
             const li = document.createElement('li');
             li.className = 'item';
-            li.setAttribute('data-keywords', (goal.keywords || []).join(' '));
+            const keys = (goal.keywords || []).join(' ');
+            li.setAttribute('data-keywords', keys);
             li.innerHTML = `<span class="item-title">#${goal.id} ${goal.title}</span><div class="item-prob">${goal.prob}</div>`;
             li.onclick = () => showDetail(goal);
-            const target = document.getElementById(goal.cluster.toUpperCase());
+            
+            const clusterId = goal.cluster ? goal.cluster.toUpperCase() : '';
+            const target = document.getElementById(clusterId);
             if(target) target.appendChild(li);
         });
     }
 
     function showDetail(g) {
         const colors = {'I AM': 'var(--iam)', 'I MIX': 'var(--imix)', 'I TASK': 'var(--itask)', 'I NET': 'var(--inet)', 'I GROW': 'var(--igrow)'};
-        document.getElementById('modalHeader').style.backgroundColor = colors[g.cluster.toUpperCase()] || '#333';
+        const header = document.getElementById('modalHeader');
+        if (header) header.style.backgroundColor = colors[g.cluster.toUpperCase()] || '#333';
+        
         document.getElementById('modalTitle').innerText = g.title;
         document.getElementById('modalProb').innerText = g.prob;
         document.getElementById('modalGoal').innerText = g.goal;
@@ -177,7 +189,10 @@
         document.querySelectorAll('.item').forEach(el => {
             const txt = el.innerText.toLowerCase();
             const keys = el.getAttribute('data-keywords').toLowerCase();
-            el.style.display = (txt.includes(s) || keys.includes(s)) && (t === "" || keys.includes(t)) ? 'block' : 'none';
+            // חיפוש חופשי + סינון קטגוריה
+            const matchSearch = txt.includes(s) || keys.includes(s);
+            const matchTag = t === "" || keys.includes(t);
+            el.style.display = matchSearch && matchTag ? 'block' : 'none';
         });
     }
 
