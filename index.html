@@ -8,60 +8,57 @@
         :root {
             --iam: #e67e22; --imix: #27ae60; --itask: #2980b9; --inet: #8e44ad; --igrow: #16a085; --bg: #f1f5f9;
         }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #1e293b; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #1e293b; line-height: 1.5; }
         .container { max-width: 100%; margin: auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         h1 { text-align: center; color: #0f172a; margin-bottom: 5px; }
         .subtitle { text-align: center; color: #64748b; margin-bottom: 20px; }
 
+        /* כרטיסיית הסבר רכזת */
         .coordinator-info {
-            background: #f8fbff; border: 2px solid #2980b9; border-radius: 15px;
-            padding: 20px; margin-bottom: 30px; line-height: 1.6;
+            background: #f8fbff; border: 2px solid #2980b9; border-radius: 15px; padding: 20px; margin-bottom: 30px;
         }
-        .info-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px; margin-top: 15px;
-        }
-        .info-box {
-            background: white; padding: 12px; border-radius: 10px;
-            border-right: 4px solid #2980b9; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .info-box { background: white; padding: 12px; border-radius: 10px; border-right: 4px solid #2980b9; font-size: 0.9rem; }
 
-        .search-area { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
-        .search-box { flex: 2; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; min-width: 250px; }
+        /* חיפוש */
+        .search-area { margin-bottom: 30px; }
+        .search-box { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; box-sizing: border-box; }
 
+        /* גריד 5 אשכולות */
         .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; align-items: start; }
         @media (max-width: 1200px) { .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } }
 
         .cluster-col { background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; height: 75vh; }
-        .cluster-h { padding: 15px 5px; color: white; font-weight: bold; text-align: center; font-size: 1rem; min-height: 50px; display: flex; align-items: center; justify-content: center; }
+        .cluster-h { padding: 15px 5px; color: white; font-weight: bold; text-align: center; font-size: 1rem; }
         .iam-h { background: var(--iam); } .imix-h { background: var(--imix); } .itask-h { background: var(--itask); } .inet-h { background: var(--inet); } .igrow-h { background: var(--igrow); }
         
-        .item-list { list-style: none; padding: 8px; margin: 0; overflow-y: auto; flex-grow: 1; }
-        .item { background: white; margin-bottom: 12px; padding: 12px; border-radius: 8px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; position: relative; }
-        .item:hover { border-color: #94a3b8; transform: translateY(-2px); }
+        .item-list { list-style: none; padding: 10px; margin: 0; overflow-y: auto; flex-grow: 1; }
+        .item { background: white; margin-bottom: 12px; padding: 15px; border-radius: 10px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; }
+        .item:hover { border-color: #94a3b8; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         
-        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 6px; color: #1e293b; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; }
-        .item-prob-preview { font-size: 0.85rem; color: #64748b; font-style: italic; line-height: 1.3; margin-bottom: 8px; }
+        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 6px; color: #1e293b; }
+        .item-prob-preview { font-size: 0.85rem; color: #64748b; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        /* תגיות אשכולות בכרטיסייה הקטנה */
-        .card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
-        .tag-micro { padding: 2px 6px; border-radius: 3px; font-size: 0.65rem; color: white; font-weight: bold; text-transform: uppercase; }
+        /* תגיות */
+        .tag-area { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
+        .tag { padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; color: white; font-weight: bold; }
 
-        /* מודל */
+        /* מודל - עיצוב חדש להעתקה נוחה */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(3px); }
-        .modal-content { background: white; margin: 2% auto; width: 90%; max-width: 800px; height: 85vh; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
-        .modal-header { padding: 20px; color: white; position: relative; }
+        .modal-content { background: white; margin: 2% auto; width: 90%; max-width: 800px; height: 90vh; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
+        .modal-header { padding: 20px; color: white; position: relative; flex-shrink: 0; }
         .close { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; color: white; }
-        .modal-body { padding: 25px; overflow-y: auto; }
-        .card { background: #f1f5f9; padding: 18px; border-radius: 12px; margin-bottom: 20px; }
-        .card-label { font-weight: bold; color: #64748b; font-size: 0.85rem; display: block; margin-bottom: 8px; border-bottom: 1px solid #cbd5e1; }
+        .modal-body { padding: 30px; overflow-y: auto; user-select: text; } /* מאפשר בחירת טקסט חופשית */
         
-        .modal-tags-area { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .tag-large { padding: 5px 12px; border-radius: 6px; font-size: 0.85rem; color: white; font-weight: bold; }
-
-        .methods-list { list-style: none; padding: 0; }
-        .methods-list li { background: white; padding: 12px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; }
-        .copy-btn { background: #0284c7; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; }
+        .copy-instruction { background: #fff4e5; padding: 10px; border-radius: 8px; font-size: 0.9rem; margin-bottom: 20px; border: 1px dashed #e67e22; text-align: center; }
+        
+        .section-title { font-weight: bold; color: #64748b; font-size: 0.85rem; margin-bottom: 5px; display: block; text-transform: uppercase; }
+        .content-box { margin-bottom: 25px; padding: 15px; background: #f8fafc; border-radius: 10px; border-right: 5px solid #cbd5e1; }
+        .methods-list { padding-right: 20px; margin: 0; }
+        .methods-list li { margin-bottom: 10px; padding: 5px; border-bottom: 1px solid #edf2f7; }
+        
+        /* סימון טקסט בצבע נוח */
+        ::selection { background: #bee3f8; color: #2c5282; }
     </style>
 </head>
 <body>
@@ -70,10 +67,10 @@
     <p class="subtitle">מודל I-PRO | עמותת שלומית</p>
 
     <div class="coordinator-info">
-        <strong>רכזת יקרה,</strong> זהו כלי דינמי להתאמת יעדים למתנדבים. 250 המטרות מסודרות בכרטיסיות לפי 5 אשכולות להתמצאות נוחה. שימי לב כי מטרות מסוימות עשויות להתאים ליותר מאשכול אחד ויופיעו עם תגיות צבעוניות מתאימות.
+        <strong>רכזת יקרה,</strong> זהו כלי דינמי להתאמת יעדים למתנדבים. 250 המטרות מסודרות בכרטיסיות לפי 5 אשכולות.
         <div class="info-grid">
             <div class="info-box">🎯 <strong>דיוק:</strong> דייקי את המטרה והדרך לפי רמת וצורך המתנדב.</div>
-            <div class="info-box">⚙️ <strong>דרכי פעולה:</strong> בחרי את הכלים המתאימים מהבנק.</div>
+            <div class="info-box">⚙️ <strong>העתקה:</strong> ניתן לסמן ולהעתיק באופן חופשי כל חלק מהטקסט במודל.</div>
             <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים לרבעון (עם דרך אחת בכל יעד).</div>
             <div class="info-box">🔍 <strong>חיפוש:</strong> השתמשי בסינון לאיתור מהיר.</div>
         </div>
@@ -99,10 +96,20 @@
             <h2 id="modalTitle" style="margin:0;"></h2>
         </div>
         <div class="modal-body">
-            <div class="modal-tags-area" id="modalTags"></div>
-            <div class="card"><span class="card-label">הבעיה הנצפית</span><div id="modalProb"></div></div>
-            <div class="card"><span class="card-label">המטרה המבוקשת</span><div id="modalGoal"></div></div>
-            <div class="card" style="background:#e0f2fe; border-right: 5px solid #0284c7;"><span class="card-label">דרכי פעולה אופרטיביות</span><ul id="modalMethods" class="methods-list"></ul></div>
+            <div class="copy-instruction">ניתן לסמן עם העכבר את הקושי, המטרה והדרכים הרלוונטיות ולהעתיק (Ctrl+C)</div>
+            
+            <span class="section-title">הבעיה הנצפית (קושי)</span>
+            <div class="content-box" id="modalProb"></div>
+
+            <span class="section-title">המטרה המבוקשת</span>
+            <div class="content-box" id="modalGoal"></div>
+
+            <span class="section-title">דרכי פעולה אופרטיביות (בחרי 1-2)</span>
+            <div class="content-box" style="background:#e0f2fe; border-color:#2980b9;">
+                <ul id="modalMethods" class="methods-list"></ul>
+            </div>
+            
+            <div id="modalTags" class="tag-area" style="margin-top:20px;"></div>
         </div>
     </div>
 </div>
@@ -132,24 +139,21 @@
             const li = document.createElement('li');
             li.className = 'item';
             
-            // יצירת רשימת כל האשכולות של המטרה (הראשי + הנוספים)
+            // זיהוי אשכולות נוספים (אם לא קיימים ב-JSON, נגדיר ריק)
             const myClusters = [goal.cluster];
             if(goal.other_clusters) goal.other_clusters.forEach(c => { if(!myClusters.includes(c)) myClusters.push(c); });
 
-            const fullContent = `${goal.title} ${goal.prob} ${goal.goal}`.toLowerCase();
-            li.setAttribute('data-search', fullContent);
+            li.setAttribute('data-search', `${goal.title} ${goal.prob} ${goal.goal}`.toLowerCase());
             
-            // תצוגת תגיות קטנות בכרטיסייה
-            const tagsHtml = myClusters.map(c => `<span class="tag-micro" style="background:${clusterColors[c.toUpperCase()]}">${c}</span>`).join('');
+            const tagsHtml = myClusters.map(c => `<span class="tag" style="background:${clusterColors[c.toUpperCase()]}">${c}</span>`).join('');
 
             li.innerHTML = `
                 <span class="item-title">#${goal.id} ${goal.title}</span>
-                <div class="item-prob-preview"><strong>הבעיה:</strong> ${goal.prob}</div>
-                <div class="card-tags">${tagsHtml}</div>
+                <div class="item-prob-preview">${goal.prob}</div>
+                <div class="tag-area">${tagsHtml}</div>
             `;
             
             li.onclick = () => showDetail(goal, myClusters);
-            
             const target = document.getElementById(goal.cluster.toUpperCase());
             if(target) target.appendChild(li);
         });
@@ -161,24 +165,16 @@
         document.getElementById('modalProb').innerText = g.prob;
         document.getElementById('modalGoal').innerText = g.goal;
         
-        // תגיות במודל
+        document.getElementById('modalMethods').innerHTML = (g.methods || []).map(m => `
+            <li>${m}</li>
+        `).join('');
+
         document.getElementById('modalTags').innerHTML = `
-            <span style="font-size:0.85rem; font-weight:bold; color:#64748b;">אשכולות רלוונטיים:</span>
-            ${clusters.map(c => `<span class="tag-large" style="background:${clusterColors[c.toUpperCase()]}">${c}</span>`).join('')}
+            <span style="font-size:0.8rem; font-weight:bold; color:#64748b; margin-left:10px;">אשכולות רלוונטיים:</span>
+            ${clusters.map(c => `<span class="tag" style="background:${clusterColors[c.toUpperCase()]}; padding:5px 10px; font-size:0.8rem;">${c}</span>`).join('')}
         `;
 
-        document.getElementById('modalMethods').innerHTML = (g.methods || []).map(m => `
-            <li><span>${m}</span><button class="copy-btn" onclick="copyText('${m.replace(/'/g, "\\'")}')">העתק</button></li>
-        `).join('');
         document.getElementById('myModal').style.display = "block";
-    }
-
-    function copyText(t) {
-        navigator.clipboard.writeText(t).then(() => {
-            const btn = event.target;
-            btn.innerText = "הועתק!"; btn.style.backgroundColor = "#27ae60";
-            setTimeout(() => { btn.innerText = "העתק"; btn.style.backgroundColor = "#0284c7"; }, 1500);
-        });
     }
 
     function closeModal() { document.getElementById('myModal').style.display = "none"; }
