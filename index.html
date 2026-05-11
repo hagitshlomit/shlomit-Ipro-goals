@@ -13,48 +13,60 @@
         h1 { text-align: center; color: #0f172a; margin-bottom: 5px; }
         .subtitle { text-align: center; color: #64748b; margin-bottom: 20px; }
 
-        .coordinator-card {
-            background: linear-gradient(135deg, #f8fbff 0%, #f1f5f9 100%);
-            border: 2px solid #2980b9; border-radius: 15px; padding: 20px; margin-bottom: 30px;
+        /* כרטיסיית הסבר לרכזות - הגרסה המקורית */
+        .coordinator-info {
+            background: #f8fbff; border: 2px solid #2980b9; border-radius: 15px;
+            padding: 20px; margin-bottom: 30px; line-height: 1.6;
+        }
+        .info-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px; margin-top: 15px;
+        }
+        .info-box {
+            background: white; padding: 12px; border-radius: 10px;
+            border-right: 4px solid #2980b9; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
 
+        /* חיפוש וסינון */
         .search-area { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
         .search-box { flex: 2; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; min-width: 250px; }
-        .filter-select { flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; background: white; }
+        .filter-select { flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; background: white; min-width: 200px; }
 
         /* תצוגת 5 אשכולות במקביל */
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(5, 1fr); /* 5 טורים שווים */
+            grid-template-columns: repeat(5, 1fr); 
             gap: 15px; 
             align-items: start;
         }
 
-        /* התאמה למסכים קטנים - עובר לטור אחד */
         @media (max-width: 1200px) {
             .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
         }
 
-        .cluster-col { background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; height: 80vh; }
+        .cluster-col { background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; height: 75vh; }
         .cluster-h { padding: 15px 5px; color: white; font-weight: bold; text-align: center; font-size: 1rem; min-height: 50px; display: flex; align-items: center; justify-content: center; }
         .iam-h { background: var(--iam); } .imix-h { background: var(--imix); } .itask-h { background: var(--itask); } .inet-h { background: var(--inet); } .igrow-h { background: var(--igrow); }
         
         .item-list { list-style: none; padding: 8px; margin: 0; overflow-y: auto; flex-grow: 1; }
-        .item { background: white; margin-bottom: 10px; padding: 12px; border-radius: 8px; cursor: pointer; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .item:hover { border-color: #94a3b8; transform: translateY(-2px); }
-        .item-title { font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 4px; }
+        .item { background: white; margin-bottom: 12px; padding: 12px; border-radius: 8px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .item:hover { border-color: #94a3b8; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+        
+        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 6px; color: #1e293b; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; }
+        .item-prob-preview { font-size: 0.85rem; color: #64748b; font-style: italic; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
         /* מודל */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(3px); }
         .modal-content { background: white; margin: 2% auto; width: 90%; max-width: 800px; height: 85vh; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
         .modal-header { padding: 20px; color: white; position: relative; }
         .close { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; color: white; }
-        .modal-body { padding: 20px; overflow-y: auto; }
-        .card { background: #f1f5f9; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
-        .card-label { font-weight: bold; color: #64748b; font-size: 0.8rem; display: block; margin-bottom: 5px; }
+        .modal-body { padding: 25px; overflow-y: auto; }
+        .card { background: #f1f5f9; padding: 18px; border-radius: 12px; margin-bottom: 20px; }
+        .card-label { font-weight: bold; color: #64748b; font-size: 0.85rem; display: block; margin-bottom: 8px; border-bottom: 1px solid #cbd5e1; }
+        
         .methods-list { list-style: none; padding: 0; }
-        .methods-list li { background: white; padding: 10px; margin-bottom: 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; }
-        .copy-btn { background: #0284c7; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+        .methods-list li { background: white; padding: 12px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; }
+        .copy-btn { background: #0284c7; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -62,14 +74,20 @@
     <h1>בנק יעדי התפתחות</h1>
     <p class="subtitle">מודל I-PRO | עמותת שלומית</p>
 
-    <div class="coordinator-card">
-        <strong>חיפוש "עומק":</strong> המערכת סורקת כעת את כל הטקסט. חפשי "עיוור", "טרנס" או "שחרור" ותמצאי את כל התוצאות הרלוונטיות.
+    <div class="coordinator-info">
+        <strong>רכזת יקרה,</strong> זהו כלי דינמי להתאמת יעדים למתנדבים.
+        <div class="info-grid">
+            <div class="info-box">🎯 <strong>גמישות:</strong> דייקי את המטרה לצורך המתנדב.</div>
+            <div class="info-box">⚙️ <strong>דרכי פעולה:</strong> בחרי את הכלים המתאימים מהבנק.</div>
+            <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים לרבעון.</div>
+            <div class="info-box">🔍 <strong>חיפוש:</strong> השתמשי בסינון לאיתור מהיר (כולל אוכלוסיות קצה).</div>
+        </div>
     </div>
     
     <div class="search-area">
-        <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי בכל הבנק..." onkeyup="filter()">
+        <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (נושא, קושי, אוכלוסייה)..." onkeyup="filter()">
         <select id="tagFilter" class="filter-select" onchange="filter()">
-            <option value="">-- כל מילות המפתח --</option>
+            <option value="">-- כל נושאי הקושי --</option>
         </select>
     </div>
 
@@ -89,9 +107,9 @@
             <h2 id="modalTitle" style="margin:0;"></h2>
         </div>
         <div class="modal-body">
-            <div class="card"><span class="card-label">הבעיה</span><div id="modalProb"></div></div>
-            <div class="card"><span class="card-label">המטרה</span><div id="modalGoal"></div></div>
-            <div class="card" style="background:#e0f2fe;"><span class="card-label">דרכי פעולה</span><ul id="modalMethods" class="methods-list"></ul></div>
+            <div class="card"><span class="card-label">הבעיה הנצפית</span><div id="modalProb"></div></div>
+            <div class="card"><span class="card-label">המטרה המבוקשת</span><div id="modalGoal"></div></div>
+            <div class="card" style="background:#e0f2fe; border-right: 5px solid #0284c7;"><span class="card-label">דרכי פעולה אופרטיביות</span><ul id="modalMethods" class="methods-list"></ul></div>
         </div>
     </div>
 </div>
@@ -130,16 +148,16 @@
             const li = document.createElement('li');
             li.className = 'item';
             
-            // אינדקס חיפוש הכולל הכל - מטפל ב"היום שאחרי", "עיוורים" וכו'
-            const fullText = `
-                ${goal.title} ${goal.prob} ${goal.goal} 
-                ${(goal.keywords || []).join(' ')} 
-                ${(goal.methods || []).join(' ')}
-            `.toLowerCase().replace(/[^א-תa-z0-9\s]/g, ''); // ניקוי תווים מיוחדים לחיפוש חלק
-            
-            li.setAttribute('data-search', fullText);
+            // אינדקס חיפוש הכולל הכל לסריקה עמוקה
+            const fullContent = `${goal.title} ${goal.prob} ${goal.goal} ${(goal.keywords || []).join(' ')}`.toLowerCase();
+            li.setAttribute('data-search', fullContent);
             li.setAttribute('data-keywords', (goal.keywords || []).join(' '));
-            li.innerHTML = `<span class="item-title">#${goal.id} ${goal.title}</span>`;
+            
+            // תצוגת כותרת + בעיה נצפית בכרטיסייה
+            li.innerHTML = `
+                <span class="item-title">#${goal.id} ${goal.title}</span>
+                <div class="item-prob-preview"><strong>הבעיה:</strong> ${goal.prob}</div>
+            `;
             li.onclick = () => showDetail(goal);
             
             const target = document.getElementById(goal.cluster.toUpperCase());
@@ -170,7 +188,7 @@
     function closeModal() { document.getElementById('myModal').style.display = "none"; }
 
     function filter() {
-        const s = document.getElementById('search').value.toLowerCase().replace(/[^א-תa-z0-9\s]/g, '');
+        const s = document.getElementById('search').value.toLowerCase();
         const t = document.getElementById('tagFilter').value.toLowerCase();
         
         document.querySelectorAll('.item').forEach(el => {
