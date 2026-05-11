@@ -19,11 +19,9 @@
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
         .info-box { background: white; padding: 12px; border-radius: 10px; border-right: 4px solid #2980b9; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
 
-        /* אזור חיפוש משופר עם רשימת מילות מפתח נפתחת */
         .search-container { display: flex; gap: 15px; align-items: flex-start; margin-bottom: 30px; flex-wrap: wrap; }
         .search-main { flex: 2; min-width: 300px; }
-        .search-box { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; box-sizing: border-box; outline: none; transition: 0.3s; }
-        .search-box:focus { border-color: #2980b9; box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1); }
+        .search-box { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; box-sizing: border-box; outline: none; }
 
         .keyword-dropdown-area { flex: 1; min-width: 250px; background: #f8fafc; padding: 10px; border-radius: 12px; border: 1px solid #e2e8f0; }
         .keyword-label { font-size: 0.8rem; font-weight: bold; color: #64748b; margin-bottom: 5px; display: block; }
@@ -37,30 +35,30 @@
         .iam-h { background: var(--iam); } .imix-h { background: var(--imix); } .itask-h { background: var(--itask); } .inet-h { background: var(--inet); } .igrow-h { background: var(--igrow); }
         
         .item-list { list-style: none; padding: 10px; margin: 0; overflow-y: auto; flex-grow: 1; }
-        .item { background: white; margin-bottom: 12px; padding: 15px; border-radius: 10px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; position: relative; }
+        .item { background: white; margin-bottom: 12px; padding: 15px; border-radius: 10px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; }
         .item:hover { border-color: #94a3b8; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 6px; color: #1e293b; }
-        .item-prob-preview { font-size: 0.85rem; color: #64748b; font-style: italic; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-
-        .tag-row { display: flex; gap: 4px; margin-top: 10px; flex-wrap: wrap; }
-        .tag-s { padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; color: white; font-weight: bold; }
+        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 6px; }
+        .item-prob-preview { font-size: 0.85rem; color: #64748b; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
         /* מודל */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
         .modal-content { background: white; margin: 2% auto; width: 90%; max-width: 750px; height: 88vh; border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; }
-        .modal-header { padding: 20px; color: white; position: relative; flex-shrink: 0; }
+        .modal-header { padding: 20px; color: white; position: relative; }
         .close { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; color: white; }
-        .modal-body { padding: 25px; overflow-y: auto; flex-grow: 1; }
-        .modal-footer { padding: 15px; background: #f1f5f9; text-align: center; border-top: 1px solid #e2e8f0; flex-shrink: 0; }
+        .modal-body { padding: 25px; overflow-y: auto; }
+        .modal-footer { padding: 15px; background: #f1f5f9; text-align: center; border-top: 1px solid #e2e8f0; }
 
         .select-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; }
         .select-card input[type="checkbox"] { transform: scale(1.4); cursor: pointer; margin-top: 5px; }
         .select-text { flex: 1; cursor: pointer; }
-        .card-label { font-size: 0.75rem; font-weight: bold; color: #64748b; display: block; margin-bottom: 4px; }
-        .custom-input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 8px; font-family: inherit; }
+        .card-label { font-size: 0.85rem; font-weight: bold; color: #2980b9; display: block; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
+        
+        .method-item { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .method-item:hover { border-color: #3b82f6; }
+        .method-item input { transform: scale(1.2); }
 
-        .btn-copy-all { background: #0284c7; color: white; border: none; padding: 14px 45px; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-copy-all:hover { background: #0369a1; transform: translateY(-2px); }
+        .custom-input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 8px; }
+        .btn-copy-all { background: #0284c7; color: white; border: none; padding: 14px 45px; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -74,52 +72,29 @@
         <div class="info-grid">
             <div class="info-box">🎯 <strong>דיוק:</strong> דייקי את המטרה והדרך לפי רמת וצורך המתנדב.</div>
             <div class="info-box">📋 <strong>בחירה והעתקה:</strong> סמני את החלקים הרלוונטיים והעתיקו הכל בלחיצה אחת.</div>
-            <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים לרבעון.</div>
+            <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים (דרך 1 לכל יעד) לרבעון.</div>
             <div class="info-box">🔍 <strong>חיפוש:</strong> השתמשי במילות המפתח המהירות לסינון נושאים.</div>
         </div>
     </div>
     
     <div class="search-container">
         <div class="search-main">
-            <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (נושא, קושי, מילה בתוך המטרה)..." onkeyup="filter()">
+            <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי..." onkeyup="filter()">
         </div>
         <div class="keyword-dropdown-area">
-            <span class="keyword-label">בחירה מהירה מתוך בנק מילות מפתח:</span>
+            <span class="keyword-label">בנק מילות מפתח:</span>
             <select id="keywordSelect" class="select-keyword" onchange="quickSearch(this.value)">
-                <option value="">-- בחרי נושא לחיפוש --</option>
-                <optgroup label="חוסן וזהות (I AM)">
-                    <option value="ביטחון עצמי">ביטחון עצמי ומסוגלות</option>
-                    <option value="ויסות רגשי">ויסות רגשי וחוסן</option>
-                    <option value="זהות">זהות ושייכות</option>
-                    <option value="היגיינה">הופעה והיגיינה</option>
-                </optgroup>
-                <optgroup label="תקשורת וחברה (I MIX)">
-                    <option value="עבודת צוות">עבודת צוות</option>
-                    <option value="בינאישי">תקשורת בינאישית</option>
-                    <option value="קונפליקט">ניהול קונפליקטים</option>
-                    <option value="סמכות">קבלת סמכות והיררכיה</option>
-                </optgroup>
-                <optgroup label="משימה וזמן (I TASK)">
-                    <option value="ניהול זמן">ניהול זמן ולו"ז</option>
-                    <option value="התמדה">התמדה ורצף תפקודי</option>
-                    <option value="סדר וארגון">סדר וארגון בסביבה</option>
-                    <option value="איכות">איכות עבודה ודיוק</option>
-                </optgroup>
-                <optgroup label="דיגיטל ורשת (I NET)">
-                    <option value="טכנולוגיה">שימוש בכלים טכנולוגיים</option>
-                    <option value="בטיחות">בטיחות ברשת</option>
-                    <option value="AI">בינה מלאכותית (AI)</option>
-                </optgroup>
-                <optgroup label="עתיד וקריירה (I GROW)">
-                    <option value="ראיון">הכנה לראיונות עבודה</option>
-                    <option value="זכויות">מיצוי זכויות</option>
-                    <option value="לימודים">תכנון לימודים והכשרה</option>
-                </optgroup>
+                <option value="">-- בחרי נושא --</option>
+                <optgroup label="I AM"><option value="ביטחון עצמי">ביטחון עצמי</option><option value="ויסות רגשי">ויסות רגשי</option></optgroup>
+                <optgroup label="I MIX"><option value="עבודת צוות">עבודת צוות</option><option value="בינאישי">תקשורת בינאישית</option></optgroup>
+                <optgroup label="I TASK"><option value="ניהול זמן">ניהול זמן</option><option value="התמדה">התמדה</option></optgroup>
+                <optgroup label="I NET"><option value="טכנולוגיה">טכנולוגיה</option></optgroup>
+                <optgroup label="I GROW"><option value="ראיון">ראיונות עבודה</option></optgroup>
             </select>
         </div>
     </div>
 
-    <div class="grid">
+    <div class="grid" id="mainGrid">
         <div class="cluster-col"><div class="cluster-h iam-h">I AM</div><ul id="I AM" class="item-list"></ul></div>
         <div class="cluster-col"><div class="cluster-h imix-h">I MIX</div><ul id="I MIX" class="item-list"></ul></div>
         <div class="cluster-col"><div class="cluster-h itask-h">I TASK</div><ul id="I TASK" class="item-list"></ul></div>
@@ -138,23 +113,26 @@
             <div class="select-card">
                 <input type="checkbox" id="checkProb" checked>
                 <div class="select-text" onclick="toggleCheck('checkProb')">
-                    <span class="card-label">הבעיה הנצפית (קושי)</span>
+                    <span style="font-weight:bold; color:#64748b; font-size:0.75rem;">הבעיה הנצפית (קושי)</span>
                     <div id="txtProb"></div>
                 </div>
             </div>
             <div class="select-card">
                 <input type="checkbox" id="checkGoal" checked>
                 <div class="select-text" onclick="toggleCheck('checkGoal')">
-                    <span class="card-label">המטרה המבוקשת</span>
+                    <span style="font-weight:bold; color:#64748b; font-size:0.75rem;">המטרה המבוקשת</span>
                     <div id="txtGoal"></div>
                 </div>
             </div>
-            <div id="methodsContainer"></div>
-            <div class="select-card" style="border-right: 5px solid #16a085;">
-                <input type="checkbox" id="checkCustom">
-                <div class="select-text">
-                    <span class="card-label">דרך פעולה אישית (שלך)</span>
-                    <input type="text" id="inputCustom" class="custom-input" placeholder="כתבי כאן דרך פעולה נוספת..." onfocus="document.getElementById('checkCustom').checked=true">
+            
+            <div style="margin-top:20px; background:#fff; border:1px solid #e2e8f0; padding:15px; border-radius:12px;">
+                <span class="card-label">דרך פעולה אופרטיבית</span>
+                <div id="methodsList"></div>
+                <div class="method-item" style="border-right: 4px solid #16a085;">
+                    <input type="checkbox" id="checkCustom">
+                    <div style="flex:1">
+                        <input type="text" id="inputCustom" class="custom-input" placeholder="דרך פעולה אישית משלך..." onfocus="document.getElementById('checkCustom').checked=true">
+                    </div>
                 </div>
             </div>
         </div>
@@ -168,15 +146,6 @@
     let allGoals = [];
     const colors = {'I AM': 'var(--iam)', 'I MIX': 'var(--imix)', 'I TASK': 'var(--itask)', 'I NET': 'var(--inet)', 'I GROW': 'var(--igrow)'};
     const files = ['1-50.json', '51-100.json', '101-150.json', '151-200.json', '201-250.json'];
-
-    function getAutoClusters(goal) {
-        let cls = [goal.cluster];
-        const txt = (goal.prob + goal.goal + (goal.keywords || []).join(' ')).toLowerCase();
-        if (txt.includes('זמן') || txt.includes('לו"ז')) cls.push('I TASK');
-        if (txt.includes('צוות') || txt.includes('קונפליקט')) cls.push('I MIX');
-        if (txt.includes('עצמי') || txt.includes('רגש')) cls.push('I AM');
-        return [...new Set(cls)];
-    }
 
     async function loadData() {
         for (let f of files) {
@@ -196,10 +165,8 @@
         allGoals.sort((a,b) => a.id - b.id).forEach(goal => {
             const li = document.createElement('li');
             li.className = 'item';
-            const cls = getAutoClusters(goal);
             li.setAttribute('data-search', `${goal.title} ${goal.prob} ${goal.goal} ${(goal.keywords || []).join(' ')}`.toLowerCase());
-            const tags = cls.map(c => `<span class="tag-s" style="background:${colors[c]}">${c}</span>`).join('');
-            li.innerHTML = `<span class="item-title">#${goal.id} ${goal.title}</span><div class="item-prob-preview">${goal.prob}</div><div class="tag-row">${tags}</div>`;
+            li.innerHTML = `<span class="item-title">#${goal.id} ${goal.title}</span><div class="item-prob-preview">${goal.prob}</div>`;
             li.onclick = () => openPicker(goal);
             const target = document.getElementById(goal.cluster.toUpperCase());
             if(target) target.appendChild(li);
@@ -213,11 +180,12 @@
         document.getElementById('txtGoal').innerText = g.goal;
         document.getElementById('inputCustom').value = '';
         document.getElementById('checkCustom').checked = false;
+
         let h = '';
         g.methods.forEach((m, i) => {
-            h += `<div class="select-card"><input type="checkbox" id="m${i}" class="m-check"><div class="select-text" onclick="toggleCheck('m${i}')"><span class="card-label">דרך פעולה אופרטיבית</span><div>${m}</div></div></div>`;
+            h += `<div class="method-item"><input type="checkbox" id="m${i}" class="m-check"><label for="m${i}" style="cursor:pointer; flex:1;">${m}</label></div>`;
         });
-        document.getElementById('methodsContainer').innerHTML = h;
+        document.getElementById('methodsList').innerHTML = h;
         document.getElementById('pickerModal').style.display = "block";
     }
 
@@ -227,34 +195,32 @@
         let t = "";
         if(document.getElementById('checkProb').checked) t += "הבעיה: " + document.getElementById('txtProb').innerText + "\n";
         if(document.getElementById('checkGoal').checked) t += "המטרה: " + document.getElementById('txtGoal').innerText + "\n\n";
+        
         let mTexts = [];
         document.querySelectorAll('.m-check').forEach(c => {
-            if(c.checked) mTexts.push("- " + c.nextElementSibling.querySelector('div').innerText);
+            if(c.checked) mTexts.push("- " + c.nextElementSibling.innerText);
         });
         if(document.getElementById('checkCustom').checked && document.getElementById('inputCustom').value.trim() !== "") {
             mTexts.push("- " + document.getElementById('inputCustom').value.trim());
         }
+        
         if(mTexts.length > 0) t += "דרכי פעולה:\n" + mTexts.join("\n");
+
         navigator.clipboard.writeText(t).then(() => {
             const b = document.querySelector('.btn-copy-all');
-            b.innerText = "הועתק בהצלחה!"; b.style.backgroundColor = "#27ae60";
-            setTimeout(() => { b.innerText = "העתק נבחרים למסמך"; b.style.backgroundColor = "#0284c7"; closeModal(); }, 1200);
+            b.innerText = "הועתק בהצלחה!";
+            setTimeout(() => { b.innerText = "העתק נבחרים למסמך"; closeModal(); }, 1200);
         });
     }
 
     function closeModal() { document.getElementById('pickerModal').style.display = "none"; }
-    
     function filter() {
         const s = document.getElementById('search').value.toLowerCase();
         document.querySelectorAll('.item').forEach(el => {
             el.style.display = el.getAttribute('data-search').includes(s) ? 'block' : 'none';
         });
     }
-
-    function quickSearch(word) {
-        document.getElementById('search').value = word;
-        filter();
-    }
+    function quickSearch(word) { document.getElementById('search').value = word; filter(); }
 
     loadData();
 </script>
