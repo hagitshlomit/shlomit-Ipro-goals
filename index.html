@@ -19,9 +19,19 @@
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
         .info-box { background: white; padding: 12px; border-radius: 10px; border-right: 4px solid #2980b9; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
 
-        .search-area { margin-bottom: 30px; }
-        .search-box { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; box-sizing: border-box; }
+        /* אזור חיפוש משופר עם מילות מפתח */
+        .search-container { display: flex; gap: 15px; align-items: flex-start; margin-bottom: 30px; flex-wrap: wrap; }
+        .search-main { flex: 2; min-width: 300px; }
+        .search-box { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; box-sizing: border-box; outline: none; transition: 0.3s; }
+        .search-box:focus { border-color: #2980b9; box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1); }
 
+        .keyword-bank { flex: 1; min-width: 300px; background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .keyword-label { font-size: 0.8rem; font-weight: bold; color: #64748b; margin-bottom: 8px; display: block; }
+        .keyword-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .k-tag { background: white; border: 1px solid #cbd5e1; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: 0.2s; color: #475569; }
+        .k-tag:hover { background: #2980b9; color: white; border-color: #2980b9; }
+
+        /* גריד אשכולות */
         .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; align-items: start; }
         @media (max-width: 1200px) { .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } }
 
@@ -33,11 +43,12 @@
         .item { background: white; margin-bottom: 12px; padding: 15px; border-radius: 10px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; position: relative; }
         .item:hover { border-color: #94a3b8; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 6px; color: #1e293b; }
-        .item-prob-preview { font-size: 0.85rem; color: #64748b; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .item-prob-preview { font-size: 0.85rem; color: #64748b; font-style: italic; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
         .tag-row { display: flex; gap: 4px; margin-top: 10px; flex-wrap: wrap; }
         .tag-s { padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; color: white; font-weight: bold; }
 
+        /* מודל */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
         .modal-content { background: white; margin: 2% auto; width: 90%; max-width: 750px; height: 88vh; border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; }
         .modal-header { padding: 20px; color: white; position: relative; flex-shrink: 0; }
@@ -45,16 +56,14 @@
         .modal-body { padding: 25px; overflow-y: auto; flex-grow: 1; }
         .modal-footer { padding: 15px; background: #f1f5f9; text-align: center; border-top: 1px solid #e2e8f0; flex-shrink: 0; }
 
-        .select-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; transition: 0.2s; }
-        .select-card:hover { border-color: #3b82f6; background: #f0f7ff; }
+        .select-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; }
         .select-card input[type="checkbox"] { transform: scale(1.4); cursor: pointer; margin-top: 5px; }
         .select-text { flex: 1; cursor: pointer; }
         .card-label { font-size: 0.75rem; font-weight: bold; color: #64748b; display: block; margin-bottom: 4px; }
-        
-        .custom-input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 5px; font-family: inherit; font-size: 0.9rem; }
+        .custom-input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; margin-top: 8px; font-family: inherit; }
 
-        .btn-copy-all { background: #0284c7; color: white; border: none; padding: 12px 40px; border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-copy-all:hover { background: #0369a1; transform: scale(1.05); }
+        .btn-copy-all { background: #0284c7; color: white; border: none; padding: 14px 45px; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-copy-all:hover { background: #0369a1; transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -69,12 +78,25 @@
             <div class="info-box">🎯 <strong>דיוק:</strong> דייקי את המטרה והדרך לפי רמת וצורך המתנדב.</div>
             <div class="info-box">📋 <strong>בחירה והעתקה:</strong> סמני את החלקים הרלוונטיים והעתיקו הכל בלחיצה אחת.</div>
             <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים לרבעון (עם דרך אחת בכל יעד).</div>
-            <div class="info-box">🔍 <strong>מילות מפתח:</strong> החיפוש סורק נושאים, קשיים ומילות מפתח מובנות.</div>
+            <div class="info-box">🔍 <strong>חיפוש:</strong> השתמשי בשורת החיפוש או במילות המפתח המהירות.</div>
         </div>
     </div>
     
-    <div class="search-area">
-        <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (נושא, קושי, מילות מפתח)..." onkeyup="filter()">
+    <div class="search-container">
+        <div class="search-main">
+            <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (נושא, קושי, מילות מפתח)..." onkeyup="filter()">
+        </div>
+        <div class="keyword-bank">
+            <span class="keyword-label">חיפוש מהיר לפי מילות מפתח:</span>
+            <div class="keyword-tags" id="quickTags">
+                <span class="k-tag" onclick="quickSearch('ביטחון עצמי')">ביטחון עצמי</span>
+                <span class="k-tag" onclick="quickSearch('ניהול זמן')">ניהול זמן</span>
+                <span class="k-tag" onclick="quickSearch('צוות')">עבודת צוות</span>
+                <span class="k-tag" onclick="quickSearch('תקשורת')">תקשורת</span>
+                <span class="k-tag" onclick="quickSearch('טכנולוגיה')">טכנולוגיה</span>
+                <span class="k-tag" onclick="quickSearch('חוסן')">חוסן</span>
+            </div>
+        </div>
     </div>
 
     <div class="grid">
@@ -107,13 +129,11 @@
                     <div id="txtGoal"></div>
                 </div>
             </div>
-            
             <div id="methodsContainer"></div>
-
             <div class="select-card" style="border-right: 5px solid #16a085;">
                 <input type="checkbox" id="checkCustom">
                 <div class="select-text">
-                    <span class="card-label">דרך פעולה 6 (אישית שלך)</span>
+                    <span class="card-label">דרך פעולה אישית (שלך)</span>
                     <input type="text" id="inputCustom" class="custom-input" placeholder="כתבי כאן דרך פעולה נוספת..." onfocus="document.getElementById('checkCustom').checked=true">
                 </div>
             </div>
@@ -158,7 +178,6 @@
             li.className = 'item';
             const cls = getAutoClusters(goal);
             li.setAttribute('data-search', `${goal.title} ${goal.prob} ${goal.goal} ${(goal.keywords || []).join(' ')}`.toLowerCase());
-            
             const tags = cls.map(c => `<span class="tag-s" style="background:${colors[c]}">${c}</span>`).join('');
             li.innerHTML = `<span class="item-title">#${goal.id} ${goal.title}</span><div class="item-prob-preview">${goal.prob}</div><div class="tag-row">${tags}</div>`;
             li.onclick = () => openPicker(goal);
@@ -174,7 +193,6 @@
         document.getElementById('txtGoal').innerText = g.goal;
         document.getElementById('inputCustom').value = '';
         document.getElementById('checkCustom').checked = false;
-
         let h = '';
         g.methods.forEach((m, i) => {
             h += `<div class="select-card"><input type="checkbox" id="m${i}" class="m-check"><div class="select-text" onclick="toggleCheck('m${i}')"><span class="card-label">דרך פעולה אופרטיבית</span><div>${m}</div></div></div>`;
@@ -189,7 +207,6 @@
         let t = "";
         if(document.getElementById('checkProb').checked) t += "הבעיה: " + document.getElementById('txtProb').innerText + "\n";
         if(document.getElementById('checkGoal').checked) t += "המטרה: " + document.getElementById('txtGoal').innerText + "\n\n";
-        
         let mTexts = [];
         document.querySelectorAll('.m-check').forEach(c => {
             if(c.checked) mTexts.push("- " + c.nextElementSibling.querySelector('div').innerText);
@@ -197,9 +214,7 @@
         if(document.getElementById('checkCustom').checked && document.getElementById('inputCustom').value.trim() !== "") {
             mTexts.push("- " + document.getElementById('inputCustom').value.trim());
         }
-        
         if(mTexts.length > 0) t += "דרכי פעולה:\n" + mTexts.join("\n");
-
         navigator.clipboard.writeText(t).then(() => {
             const b = document.querySelector('.btn-copy-all');
             b.innerText = "הועתק בהצלחה!"; b.style.backgroundColor = "#27ae60";
@@ -213,6 +228,11 @@
         document.querySelectorAll('.item').forEach(el => {
             el.style.display = el.getAttribute('data-search').includes(s) ? 'block' : 'none';
         });
+    }
+
+    function quickSearch(word) {
+        document.getElementById('search').value = word;
+        filter();
     }
 
     loadData();
