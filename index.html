@@ -19,19 +19,16 @@
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
         .info-box { background: white; padding: 12px; border-radius: 10px; border-right: 4px solid #2980b9; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
 
-        /* אזור חיפוש משופר עם מילות מפתח */
+        /* אזור חיפוש משופר עם רשימת מילות מפתח נפתחת */
         .search-container { display: flex; gap: 15px; align-items: flex-start; margin-bottom: 30px; flex-wrap: wrap; }
         .search-main { flex: 2; min-width: 300px; }
         .search-box { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; box-sizing: border-box; outline: none; transition: 0.3s; }
         .search-box:focus { border-color: #2980b9; box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1); }
 
-        .keyword-bank { flex: 1; min-width: 300px; background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; }
-        .keyword-label { font-size: 0.8rem; font-weight: bold; color: #64748b; margin-bottom: 8px; display: block; }
-        .keyword-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-        .k-tag { background: white; border: 1px solid #cbd5e1; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: 0.2s; color: #475569; }
-        .k-tag:hover { background: #2980b9; color: white; border-color: #2980b9; }
+        .keyword-dropdown-area { flex: 1; min-width: 250px; background: #f8fafc; padding: 10px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .keyword-label { font-size: 0.8rem; font-weight: bold; color: #64748b; margin-bottom: 5px; display: block; }
+        .select-keyword { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.95rem; cursor: pointer; background: white; }
 
-        /* גריד אשכולות */
         .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; align-items: start; }
         @media (max-width: 1200px) { .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } }
 
@@ -77,25 +74,48 @@
         <div class="info-grid">
             <div class="info-box">🎯 <strong>דיוק:</strong> דייקי את המטרה והדרך לפי רמת וצורך המתנדב.</div>
             <div class="info-box">📋 <strong>בחירה והעתקה:</strong> סמני את החלקים הרלוונטיים והעתיקו הכל בלחיצה אחת.</div>
-            <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים לרבעון (עם דרך אחת בכל יעד).</div>
-            <div class="info-box">🔍 <strong>חיפוש:</strong> השתמשי בשורת החיפוש או במילות המפתח המהירות.</div>
+            <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים לרבעון.</div>
+            <div class="info-box">🔍 <strong>חיפוש:</strong> השתמשי במילות המפתח המהירות לסינון נושאים.</div>
         </div>
     </div>
     
     <div class="search-container">
         <div class="search-main">
-            <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (נושא, קושי, מילות מפתח)..." onkeyup="filter()">
+            <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (נושא, קושי, מילה בתוך המטרה)..." onkeyup="filter()">
         </div>
-        <div class="keyword-bank">
-            <span class="keyword-label">חיפוש מהיר לפי מילות מפתח:</span>
-            <div class="keyword-tags" id="quickTags">
-                <span class="k-tag" onclick="quickSearch('ביטחון עצמי')">ביטחון עצמי</span>
-                <span class="k-tag" onclick="quickSearch('ניהול זמן')">ניהול זמן</span>
-                <span class="k-tag" onclick="quickSearch('צוות')">עבודת צוות</span>
-                <span class="k-tag" onclick="quickSearch('תקשורת')">תקשורת</span>
-                <span class="k-tag" onclick="quickSearch('טכנולוגיה')">טכנולוגיה</span>
-                <span class="k-tag" onclick="quickSearch('חוסן')">חוסן</span>
-            </div>
+        <div class="keyword-dropdown-area">
+            <span class="keyword-label">בחירה מהירה מתוך בנק מילות מפתח:</span>
+            <select id="keywordSelect" class="select-keyword" onchange="quickSearch(this.value)">
+                <option value="">-- בחרי נושא לחיפוש --</option>
+                <optgroup label="חוסן וזהות (I AM)">
+                    <option value="ביטחון עצמי">ביטחון עצמי ומסוגלות</option>
+                    <option value="ויסות רגשי">ויסות רגשי וחוסן</option>
+                    <option value="זהות">זהות ושייכות</option>
+                    <option value="היגיינה">הופעה והיגיינה</option>
+                </optgroup>
+                <optgroup label="תקשורת וחברה (I MIX)">
+                    <option value="עבודת צוות">עבודת צוות</option>
+                    <option value="בינאישי">תקשורת בינאישית</option>
+                    <option value="קונפליקט">ניהול קונפליקטים</option>
+                    <option value="סמכות">קבלת סמכות והיררכיה</option>
+                </optgroup>
+                <optgroup label="משימה וזמן (I TASK)">
+                    <option value="ניהול זמן">ניהול זמן ולו"ז</option>
+                    <option value="התמדה">התמדה ורצף תפקודי</option>
+                    <option value="סדר וארגון">סדר וארגון בסביבה</option>
+                    <option value="איכות">איכות עבודה ודיוק</option>
+                </optgroup>
+                <optgroup label="דיגיטל ורשת (I NET)">
+                    <option value="טכנולוגיה">שימוש בכלים טכנולוגיים</option>
+                    <option value="בטיחות">בטיחות ברשת</option>
+                    <option value="AI">בינה מלאכותית (AI)</option>
+                </optgroup>
+                <optgroup label="עתיד וקריירה (I GROW)">
+                    <option value="ראיון">הכנה לראיונות עבודה</option>
+                    <option value="זכויות">מיצוי זכויות</option>
+                    <option value="לימודים">תכנון לימודים והכשרה</option>
+                </optgroup>
+            </select>
         </div>
     </div>
 
@@ -223,6 +243,7 @@
     }
 
     function closeModal() { document.getElementById('pickerModal').style.display = "none"; }
+    
     function filter() {
         const s = document.getElementById('search').value.toLowerCase();
         document.querySelectorAll('.item').forEach(el => {
