@@ -21,7 +21,8 @@
 
         .search-container { display: flex; gap: 15px; align-items: flex-start; margin-bottom: 30px; flex-wrap: wrap; }
         .search-main { flex: 2; min-width: 300px; }
-        .search-box { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; box-sizing: border-box; outline: none; }
+        .search-box { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1.1rem; box-sizing: border-box; outline: none; transition: 0.3s; }
+        .search-box:focus { border-color: #2980b9; box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1); }
 
         .keyword-dropdown-area { flex: 1; min-width: 250px; background: #f8fafc; padding: 10px; border-radius: 12px; border: 1px solid #e2e8f0; }
         .keyword-label { font-size: 0.8rem; font-weight: bold; color: #64748b; margin-bottom: 5px; display: block; }
@@ -37,16 +38,18 @@
         .item-list { list-style: none; padding: 10px; margin: 0; overflow-y: auto; flex-grow: 1; }
         .item { background: white; margin-bottom: 12px; padding: 15px; border-radius: 10px; cursor: pointer; border: 1px solid #e2e8f0; transition: 0.2s; }
         .item:hover { border-color: #94a3b8; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 6px; }
-        .item-prob-preview { font-size: 0.85rem; color: #64748b; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .item-title { font-weight: bold; font-size: 0.95rem; display: block; margin-bottom: 6px; color: #1e293b; }
+        .item-prob-preview { font-size: 0.85rem; color: #64748b; font-style: italic; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        /* מודל */
+        .tag-row { display: flex; gap: 4px; margin-top: 10px; flex-wrap: wrap; }
+        .tag-s { padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; color: white; font-weight: bold; }
+
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
         .modal-content { background: white; margin: 2% auto; width: 90%; max-width: 750px; height: 88vh; border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; }
-        .modal-header { padding: 20px; color: white; position: relative; }
+        .modal-header { padding: 20px; color: white; position: relative; flex-shrink: 0; }
         .close { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; color: white; }
-        .modal-body { padding: 25px; overflow-y: auto; }
-        .modal-footer { padding: 15px; background: #f1f5f9; text-align: center; border-top: 1px solid #e2e8f0; }
+        .modal-body { padding: 25px; overflow-y: auto; flex-grow: 1; }
+        .modal-footer { padding: 15px; background: #f1f5f9; text-align: center; border-top: 1px solid #e2e8f0; flex-shrink: 0; }
 
         .select-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; }
         .select-card input[type="checkbox"] { transform: scale(1.4); cursor: pointer; margin-top: 5px; }
@@ -71,7 +74,7 @@
         <strong>רכזת יקרה,</strong> זהו כלי דינמי להתאמת יעדים למתנדבים. 250 המטרות מסודרות בכרטיסיות לפי 5 אשכולות להתמצאות נוחה. שימי לב כי עומדת לרשותך האפשרות לבחור מטרות ודרכים מובנות, או להוסיף דרך פעולה אישית משלך בכל כרטיסיה.
         <div class="info-grid">
             <div class="info-box">🎯 <strong>דיוק:</strong> דייקי את המטרה והדרך לפי רמת וצורך המתנדב.</div>
-            <div class="info-box">📋 <strong>בחירה והעתקה:</strong> סמני את החלקים הרלוונטיים והעתיקו הכל בלחיצה אחת.</div>
+            <div class="info-box">📋 <strong>בחירה והעתקה:</strong> סמני את החלקים הרלוונטיים והעתיקי הכל בלחיצה אחת.</div>
             <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים (דרך 1 לכל יעד) לרבעון.</div>
             <div class="info-box">🔍 <strong>חיפוש:</strong> השתמשי במילות המפתח המהירות לסינון נושאים.</div>
         </div>
@@ -79,17 +82,45 @@
     
     <div class="search-container">
         <div class="search-main">
-            <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי..." onkeyup="filter()">
+            <input type="text" id="search" class="search-box" placeholder="חיפוש חופשי (נושא, קושי, מילה)..." onkeyup="filter()">
         </div>
         <div class="keyword-dropdown-area">
-            <span class="keyword-label">בנק מילות מפתח:</span>
+            <span class="keyword-label">בנק מילות מפתח מלא:</span>
             <select id="keywordSelect" class="select-keyword" onchange="quickSearch(this.value)">
-                <option value="">-- בחרי נושא --</option>
-                <optgroup label="I AM"><option value="ביטחון עצמי">ביטחון עצמי</option><option value="ויסות רגשי">ויסות רגשי</option></optgroup>
-                <optgroup label="I MIX"><option value="עבודת צוות">עבודת צוות</option><option value="בינאישי">תקשורת בינאישית</option></optgroup>
-                <optgroup label="I TASK"><option value="ניהול זמן">ניהול זמן</option><option value="התמדה">התמדה</option></optgroup>
-                <optgroup label="I NET"><option value="טכנולוגיה">טכנולוגיה</option></optgroup>
-                <optgroup label="I GROW"><option value="ראיון">ראיונות עבודה</option></optgroup>
+                <option value="">-- בחרי נושא לסינון --</option>
+                <optgroup label="חוסן וזהות (I AM)">
+                    <option value="ביטחון עצמי">ביטחון עצמי ומסוגלות</option>
+                    <option value="ויסות רגשי">ויסות רגשי וחוסן</option>
+                    <option value="זהות">זהות ושייכות</option>
+                    <option value="היגיינה">הופעה והיגיינה</option>
+                    <option value="עצמאות">עצמאות אישית</option>
+                </optgroup>
+                <optgroup label="תקשורת וחברה (I MIX)">
+                    <option value="עבודת צוות">עבודת צוות</option>
+                    <option value="בינאישי">תקשורת בינאישית</option>
+                    <option value="קונפליקט">ניהול קונפליקטים</option>
+                    <option value="סמכות">קבלת סמכות והיררכיה</option>
+                    <option value="ייצוגיות">ייצוגיות וגבולות</option>
+                </optgroup>
+                <optgroup label="משימה וזמן (I TASK)">
+                    <option value="ניהול זמן">ניהול זמן ולו"ז</option>
+                    <option value="התמדה">התמדה ורצף תפקודי</option>
+                    <option value="סדר וארגון">סדר וארגון בסביבה</option>
+                    <option value="איכות">איכות עבודה ודיוק</option>
+                    <option value="אחריות">אחריות אישית</option>
+                </optgroup>
+                <optgroup label="דיגיטל ורשת (I NET)">
+                    <option value="טכנולוגיה">שימוש בכלים טכנולוגיים</option>
+                    <option value="בטיחות">בטיחות ברשת</option>
+                    <option value="AI">בינה מלאכותית (AI)</option>
+                    <option value="מידע">חיפוש וניהול מידע</option>
+                </optgroup>
+                <optgroup label="עתיד וקריירה (I GROW)">
+                    <option value="ראיון">הכנה לראיונות עבודה</option>
+                    <option value="זכויות">מיצוי זכויות</option>
+                    <option value="לימודים">תכנון לימודים והכשרה</option>
+                    <option value="תעסוקה">קידום תעסוקתי</option>
+                </optgroup>
             </select>
         </div>
     </div>
@@ -147,6 +178,15 @@
     const colors = {'I AM': 'var(--iam)', 'I MIX': 'var(--imix)', 'I TASK': 'var(--itask)', 'I NET': 'var(--inet)', 'I GROW': 'var(--igrow)'};
     const files = ['1-50.json', '51-100.json', '101-150.json', '151-200.json', '201-250.json'];
 
+    function getAutoClusters(goal) {
+        let cls = [goal.cluster];
+        const txt = (goal.prob + goal.goal + (goal.keywords || []).join(' ')).toLowerCase();
+        if (txt.includes('זמן') || txt.includes('לו"ז')) cls.push('I TASK');
+        if (txt.includes('צוות') || txt.includes('קונפליקט')) cls.push('I MIX');
+        if (txt.includes('עצמי') || txt.includes('רגש')) cls.push('I AM');
+        return [...new Set(cls)];
+    }
+
     async function loadData() {
         for (let f of files) {
             try {
@@ -165,8 +205,17 @@
         allGoals.sort((a,b) => a.id - b.id).forEach(goal => {
             const li = document.createElement('li');
             li.className = 'item';
+            const cls = getAutoClusters(goal);
             li.setAttribute('data-search', `${goal.title} ${goal.prob} ${goal.goal} ${(goal.keywords || []).join(' ')}`.toLowerCase());
-            li.innerHTML = `<span class="item-title">#${goal.id} ${goal.title}</span><div class="item-prob-preview">${goal.prob}</div>`;
+            
+            const tags = cls.map(c => `<span class="tag-s" style="background:${colors[c]}">${c}</span>`).join('');
+            
+            li.innerHTML = `
+                <span class="item-title">#${goal.id} ${goal.title}</span>
+                <div class="item-prob-preview">${goal.prob}</div>
+                <div class="tag-row">${tags}</div>
+            `;
+            
             li.onclick = () => openPicker(goal);
             const target = document.getElementById(goal.cluster.toUpperCase());
             if(target) target.appendChild(li);
