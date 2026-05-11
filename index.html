@@ -13,7 +13,7 @@
         h1 { text-align: center; color: #0f172a; margin-bottom: 5px; }
         .subtitle { text-align: center; color: #64748b; margin-bottom: 20px; }
 
-        /* כרטיסיית הסבר לרכזות - הגרסה המקורית */
+        /* כרטיסיית הסבר מעודכנת לרכזות */
         .coordinator-info {
             background: #f8fbff; border: 2px solid #2980b9; border-radius: 15px;
             padding: 20px; margin-bottom: 30px; line-height: 1.6;
@@ -75,12 +75,12 @@
     <p class="subtitle">מודל I-PRO | עמותת שלומית</p>
 
     <div class="coordinator-info">
-        <strong>רכזת יקרה,</strong> זהו כלי דינמי להתאמת יעדים למתנדבים.
+        <strong>רכזת יקרה,</strong> זהו כלי דינמי להתאמת יעדים למתנדבים. המטרות מסודרות בכרטיסיות לפי אשכולות להתמצאות נוחה.
         <div class="info-grid">
-            <div class="info-box">🎯 <strong>גמישות:</strong> דייקי את המטרה לצורך המתנדב.</div>
+            <div class="info-box">🎯 <strong>דיוק:</strong> דייק את המטרה והדרך לפי רמת וצורך המתנדב.</div>
             <div class="info-box">⚙️ <strong>דרכי פעולה:</strong> בחרי את הכלים המתאימים מהבנק.</div>
-            <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים לרבעון.</div>
-            <div class="info-box">🔍 <strong>חיפוש:</strong> השתמשי בסינון לאיתור מהיר (כולל אוכלוסיות קצה).</div>
+            <div class="info-box">📅 <strong>ניהול:</strong> יעד 1 (2 דרכים) או 2 יעדים לרבעון (עם דרך אחת בכל יעד).</div>
+            <div class="info-box">🔍 <strong>חיפוש:</strong> השתמשי בסינון לאיתור מהיר.</div>
         </div>
     </div>
     
@@ -148,12 +148,10 @@
             const li = document.createElement('li');
             li.className = 'item';
             
-            // אינדקס חיפוש הכולל הכל לסריקה עמוקה
             const fullContent = `${goal.title} ${goal.prob} ${goal.goal} ${(goal.keywords || []).join(' ')}`.toLowerCase();
             li.setAttribute('data-search', fullContent);
             li.setAttribute('data-keywords', (goal.keywords || []).join(' '));
             
-            // תצוגת כותרת + בעיה נצפית בכרטיסייה
             li.innerHTML = `
                 <span class="item-title">#${goal.id} ${goal.title}</span>
                 <div class="item-prob-preview"><strong>הבעיה:</strong> ${goal.prob}</div>
@@ -181,7 +179,11 @@
         navigator.clipboard.writeText(t).then(() => {
             const btn = event.target;
             btn.innerText = "הועתק!";
-            setTimeout(() => btn.innerText = "העתק", 1500);
+            btn.style.backgroundColor = "#27ae60";
+            setTimeout(() => { 
+                btn.innerText = "העתק"; 
+                btn.style.backgroundColor = "#0284c7";
+            }, 1500);
         });
     }
 
